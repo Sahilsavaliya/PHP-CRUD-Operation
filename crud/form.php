@@ -14,32 +14,7 @@
 
         <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk="   crossorigin="anonymous"></script>
 
-		<!-- <script type="text/javascript">
-function question_submit(input) {
 
-    if (input == 1)
-    {
-        // if (confirm('Are you sure you want to delete?')) {
-        //     document.getElementById("action").value = "Delete";
-
-        //     $('#Batch').submit();
-        // }
-        // else {
-        //     alert('You have not submitted this form');
-        // }
-    }
-    else {
-        if (confirm('Are you sure you want to approve?')) {
-            document.getElementById("action").value = "Approve";
-            $('#Batch').submit();
-        }
-        else {
-            alert('You have not submitted this form');
-        }
-    }
-}
-</script> -->
- 
 		
 		<script type="text/javascript">
 
@@ -48,7 +23,7 @@ function question_submit(input) {
 
 			$(document).ready(function(){			
 				
-				var TxtNameFlag=false,TxtContactNoFlag=false,TxtEmailIdFlag=false,TxtContactMsgFlag=false;
+				var TxtNameFlag=false,TxtContactNoFlag=false,TxtEmailIdFlag=false,TxtContactMsgFlag=false,TxtDOBFlag;
 							
 				$("#Firstname").blur(function(){
 					$("#FirstnameValidation").empty();
@@ -133,7 +108,7 @@ function question_submit(input) {
 					if($(this).val()=="" || $(this).val()==null)
 					{
 						$("#DOBValidation").html("(*) DOB id required..!!");
-						TxtEmailIdFlag=false;
+						TxtDOBFlag=false;
 					}
 				});
 
