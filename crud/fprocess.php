@@ -7,7 +7,7 @@ if(!isset($_POST['submit']))
 	header("location:form.php");
 	exit();
 }
-
+$id = $_POST['id'];
 $fn = $_POST['fname'];
 $ln = $_POST['lname'];
 $gen = $_POST['gender'];

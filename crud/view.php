@@ -75,7 +75,7 @@ function deletere(str) {
     ?>
 
 
-    <section class="ftco-section">
+<section class="ftco-section">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-6 text-center mb-4">
@@ -86,22 +86,22 @@ function deletere(str) {
                 <div class="col-md-12">
 
                     <div class="table-wrap">
-                        <table class="table">
+                        <table class="table" width="100%">
                             <thead class="thead-primary">
                                 <tr>
-
-                                    <td class="tabcon">ID</td>
-                                    <td class="tabcon">FirstName</td>
-                                    <td class="tabcon">LastName</td>
-                                    <td class="tabcon">Gender</td>
-                                    <td class="tabcon">Contact</td>
-                                    <td class="tabcon">Email Address</td>
-                                    <td class="tabcon">Date Of Birth</td>
-                                    <td class="tabcon">Age</td>
-                                    <td class="tabcon">Password</td>
-                                    <td class="tabcon">file</td>
-                                    <td class="tabcon">Update</td>
-                                    <td class="tabcon">Delete</td>
+                                    
+                                    <td class="tabcon"><b>ID</b></td>
+                                    <td class="tabcon"><b>FirstName</b></td>
+                                    <td class="tabcon"><b>LastName</b></td>
+                                    <td class="tabcon"><b>Gender</b></td>
+                                    <td class="tabcon"><b>Contact</b></td>
+                                    <td class="tabcon"><b>Email Address</b></td>
+                                    <td class="tabcon"><b>Date Of Birth</b></td>
+                                    <td class="tabcon"><b>Age</b></td>
+                                    <td class="tabcon"><b>Password</b></td>
+                                    <td class="tabcon"><b>file</b></td>
+                                    <td class="tabcon"><b>Update</b></td>
+                                    <td class="tabcon"><b>Delete</b></td>
                                     <?php
                                     // session_start();
                                     if (mysqli_num_rows($result) > 0) {
@@ -145,6 +145,21 @@ function deletere(str) {
                                     }
                     ?>
                         </table>
+                        <?php
+$thelist = "";
+  if ($handle = opendir('upload')) {
+    while (false !== ($file = readdir($handle))) {
+      if ($file != "." && $file != "..") {
+        $thelist .= '<li><p>Download file <a href="download.php?file=' . $file . '">'.$file.'</a></p></li>';
+        $thelist .= '<li><p>Delete file <a href="deletefile.php?file=' . $file . '">'.$file.'</a></p></li>';
+        $thelist .= '<p>--------------------------------------';
+      }
+    }
+    closedir($handle);
+  }
+?>
+<h1>List of files:</h1>
+<ul><?php echo $thelist; ?></ul>
                     </div>
                 </div>
             </div>

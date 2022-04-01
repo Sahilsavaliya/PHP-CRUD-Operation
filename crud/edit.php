@@ -42,7 +42,7 @@ $query = "SELECT * FROM `table1` WHERE id=$id";
 
   ?>
 
-<form  method="GET"  action="update.php" enctype="multipart/form-data">
+<form  method="POST"  action="update.php" enctype="multipart/form-data">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-offset-4 col-lg-4 col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-12" id="CNAForms">
@@ -70,8 +70,8 @@ $query = "SELECT * FROM `table1` WHERE id=$id";
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-female"></i> | <i class="fa fa-male"></i></span>
 							<select id="DDL_Gender" name="gender" class="form-control">
-								<option value="male" <?php if($row['gender']=="male"){echo "checked";} ?>>Female</option>
-								<option value="female" <?php if($row['gender']=="female"){echo "checked";} ?>>Male</option>
+								<option value="male" name="gender" <?php if($row['gender']=="male"){echo "checked";} ?>><label>Male</label></option>
+								<option value="female" name="gender" <?php if($row['gender']=="female"){echo "checked";} ?>><label>Female</label></option>
 							</select>
 						</div>
 					</div>
@@ -103,6 +103,32 @@ $query = "SELECT * FROM `table1` WHERE id=$id";
 						</div>
 						<small id="DOBValidation" class="text-danger"></small>
 					</div>
+
+					 <!-- <div class="form-group">
+
+                        <b><i class="fa fa-phone"></i> Designation</b>
+
+                        <div class="input-group">
+
+                        <select name="Designation"class="form-control" id="Designation" required>
+
+        <option class="form-control"></option>
+
+        <option value="Jr Devloper" <?php echo $row['designation']=="Jr Devloper"?"selected=selected":""; ?> class="form-control">Jr Devloper</option>
+
+        <option value="Sr.Software Devloper"<?php echo $row['designation']=="Sr.Software Devloper"?"selected=selected":""; ?> class="form-control">Sr Devloper</option>
+
+        <option value="Associate Jr.Software Devloper"<?php echo $row['designation']=="Associate Jr.Software Devloper"?"selected=selected":""; ?> class="form-control">Associate Jr.Software Devloper </option>
+
+        <option value="Business Analyst "<?php echo $row['designation']=="Business Analyst "?"selected=selected":""; ?> class="form-control"> Business Analyst</option>
+
+    </select>
+
+</div> -->
+
+
+
+                </div>
 					<div class="form-group">
 						<b>Age</b>
 						<div class="input-group">
@@ -135,6 +161,8 @@ $query = "SELECT * FROM `table1` WHERE id=$id";
 						<small id="PasswordValidation" class="text-danger"></small>
 					</div>
 					<div class="form-group">
+						
+						<input type="hidden" name="id" value="<?=$_GET['id']?>">
 						<!-- <a class="btn btn-primary" ><i class="fa fa-user-plus" name="btn" style="color:white;"></i> Create New Account</a> -->
 						<input type="submit" name="submit"  style="border-radius: 5px;">
 						
