@@ -1,0 +1,33 @@
+problem summery: 
+
+
+aim and objective: 
+Web application with great user experience, easy interface and many features.
+The main objective of this project is to make well-organized project. Customer can easily choose any car without any problem. 
+We were able to solve the customer’s requirement.
+
+
+Acknowledgments:
+Our journey towards achieving the destination for the design and devlopment of this project has finally come to a fruitful culmination.
+Our efforts and whole hearted cooperation of our lecturer has ended on a sucessfull note.
+During this journey we faced numerous problem challenges.
+
+Plan of the work :
+The website layout should be true to its prime offering, provideing best deal of car and providing entire details of car. 
+From the very start, users should be able to easily figure out how to go about the site. Let’s first gather some handy insights for the homepage’s layout. 
+The whole plan is to follow a standard software development lifecycle model is water fall model to carry out this project.
+
+
+Problem Specifications:
+The purpose of car management system is provide best deals and entire information about car for the user. 
+This statement describes the problem definition of the proposed system. The purpose of this site is to book online car.
+
+Literature Review and Prior Art Search: 
+Currently, the popularity of online car management technology user can easy to book a car.
+Several companies are investing in this field and are competing to release the latest and safest autonomous cars. 
+However, this rapid development also creates many security problems, which are considered a significant threat both to industry and to consumers. 
+As a result, there is an urgent need to study the possible security threats and different solutions that can ensure the safety of car buyer.
+This research article focuses on examining the systematic literature on security. 
+It also provides comprehensive and unbiased information regarding various car security problems, solutions.
+ Systematic literature review is used for more than 127 different research articles published between the years 2010 and 2018. 
+	

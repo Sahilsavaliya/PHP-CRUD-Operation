@@ -74,7 +74,7 @@ function deletere(str) {
 
     ?>
 
-
+<h1 style="text-align: center;"> Display Records </h1><br>
 <section class="ftco-section">
         <div class="container">
             <div class="row justify-content-center">
@@ -96,12 +96,14 @@ function deletere(str) {
                                     <td class="tabcon"><b>Gender</b></td>
                                     <td class="tabcon"><b>Contact</b></td>
                                     <td class="tabcon"><b>Email Address</b></td>
-                                    <td class="tabcon"><b>Date Of Birth</b></td>
+                                    <td class="tabcon"><b>Designation</b></td>
                                     <td class="tabcon"><b>Age</b></td>
                                     <td class="tabcon"><b>Password</b></td>
                                     <td class="tabcon"><b>file</b></td>
+                                    <td class="tabcon"><b>Country</b></td>
                                     <td class="tabcon"><b>Update</b></td>
                                     <td class="tabcon"><b>Delete</b></td>
+                                    
                                     <?php
                                     // session_start();
                                     if (mysqli_num_rows($result) > 0) {
@@ -124,10 +126,11 @@ function deletere(str) {
                                     <td class="tabcon"><?php echo $row['gender'] ?></td>
                                     <td class="tabcon"><?php echo $row['contact'] ?></td>
                                     <td class="tabcon"><?php echo $row['email'] ?></td>
-                                    <td class="tabcon"><?php echo $row['dob'] ?></td>
+                                    <td class="tabcon"><?php echo $row['designation'] ?></td>
                                     <td class="tabcon"><?php echo $row['age'] ?></td>
                                     <td class="tabcon"><?php echo $row['password'] ?></td>
                                     <td class="tabcon"><?php echo $row['file'] ?></td> 
+                                    <td class="tabcon"><?php echo $row['country'] ?></td>
                                     <td class="tabcon"><a href="edit.php?id=<?php echo $row['id']; ?>" title="Edit"><button style="background-color: skyblue;">Edit</button></a></td>
                                     <td class="tabcon"><a href="delete.php?id=<?php echo $row['id']; ?>" title="Delete"><button style="background-color: red;">Delete</button></a></td>
 

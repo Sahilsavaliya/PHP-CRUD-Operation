@@ -1,4 +1,5 @@
 <?php
+session_start();
 require 'dbconnect1.php';
 
 // require 'file.php';
@@ -13,10 +14,12 @@ $ln = $_POST['lname'];
 $gen = $_POST['gender'];
 $con = $_POST['contact'];
 $em = $_POST['email'];
-$dob = $_POST['dob'];
+$des = $_POST['designation'];
 $age = $_POST['age'];
 $pass = $_POST['password'];
 $fi = $_FILES['fileToUpload']['name'];
+$check = $_POST['Country'];
+$check = implode(", ", $_POST['Country']);
 
 $target_dir = "upload/";
     $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
@@ -47,10 +50,22 @@ $target_dir = "upload/";
         }
     }
 
+    $qem = mysqli_query($conn,"SELECT * from table1 WHERE email='$em'");
+
+    if(mysqli_num_rows($qem)>0){
+        // $_SESSION['status'] = "Email id already used!!";
+        echo "<br>";
+        echo "Email id already used!!";
+        // header("location:form.php");
+
+    }else{
+
+   
 
 $query = "INSERT INTO `table1`
- VALUES ('$id','$fn','$ln','$gen','$con','$em','$dob','$age','$pass','$fi')";
+ VALUES ('$id','$fn','$ln','$gen','$con','$em','$des','$age','$pass','$fi','$check')";
 // echo "$query";
+
 
 $result=mysqli_query($conn,$query);
 var_dump($result);
@@ -62,5 +77,6 @@ if ($result)
 else 
  {
 	 header("location:form.php");
-	echo "not insert";
- }	
+     echo "not insert";
+ }
+}	

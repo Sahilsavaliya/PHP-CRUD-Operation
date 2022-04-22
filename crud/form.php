@@ -226,8 +226,8 @@ var $FNameLNameRegEx = /^([a-zA-Z]{2,20})$/;
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-female"></i> | <i class="fa fa-male"></i></span>
 							<select id="DDL_Gender" name="gender" class="form-control">
-								<option value='F'>Female</option>
-								<option value='M'>Male</option>
+								<option value='Female' >Female</option>
+								<option value='Male'>Male</option>
 							</select>
 						</div>
 					</div>
@@ -248,29 +248,29 @@ var $FNameLNameRegEx = /^([a-zA-Z]{2,20})$/;
 						<small id="EmailIdValidation" class="text-danger"></small>
 					</div>
 
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<b>DOB</b>
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-birthday-cake"></i></span>
 							<input id="DOB" name="dob" type="text" maxlength="50" class="form-control" />
 						</div>
 						<small id="DOBValidation" class="text-danger"></small>
-					</div>
+					</div> -->
 
 					
-					<!-- <div class="form-group">
+					<div class="form-group">
                         <b><i class="fa fa-phone"></i> Designation</b>
                         <div class="input-group">
-                            <select id="Designation" name="Designation" class="form-control">
+                            <select id="designation" name="designation" class="form-control">
                                 <option value="">Choose Designation</option>
-                                <option value="Jr.Software Devloper">Jr Devloper</option>
-                                <option value="Sr.Software Devloper">Sr Devloper</option>
-                                <option value="Project Manager">Associate Jr.Software Devloper</option>
+                                <option value="Jr.Software Devloper">Jr.Software Devloper</option>
+                                <option value="Sr.Software Devloper">Sr.Software Devloper</option>
+                                <option value="Project Manager">Project Manager</option>
                                 <option value="Business Analyst"> Business Analyst</option>
                             </select>
                         </div>
                         <small id="DesignationValidation" class="text-danger"></small>
-                    </div> -->
+                    </div>
 				
 			 
 					<div class="form-group">
@@ -299,6 +299,17 @@ var $FNameLNameRegEx = /^([a-zA-Z]{2,20})$/;
                         </div>
                         <small id="FileValidation" class="text-danger"></small>
                     </div>
+
+					<div class="form-group">
+					<b>Country</b>
+					<div class="input-group">
+					<input type="checkbox" id="Country" name="Country[]" value="India">India<br/>
+            		<input type="checkbox" id="Country" name="Country[]" value="USA">USA<br/>
+            		<input type="checkbox" id="Country" name="Country[]" value="Australia">Australia<br/>
+            		<input type="checkbox" id="Country" name="Country[]" value="Europe">Europe<br/>
+           			<input type="checkbox" id="Country" name="Country[]" value="Italy">Italy<br/>
+					</div>
+					</div>
 
 
 					<div class="form-group">
