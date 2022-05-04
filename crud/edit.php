@@ -1,3 +1,11 @@
+<?php 
+if(! isset($_SESSION)) {
+    session_start();
+}if(!($_SESSION['email'])) {
+    header('location: index.php');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,7 +49,37 @@
     <?php
 require 'dbconnect1.php';
 
- session_start();
+//  session_start();
+
+ $target_dir = "upload/";
+ @$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+ $uploadOk = 1;
+ $filetype = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+ // Check file size
+ if (@$_FILES["fileToUpload"]["size"] > 500000) {
+     echo "Sorry, your file is too large.";
+     $uploadOk = 0;
+ }
+ 
+ // Allow certain file formats
+ if($filetype != "txt" && $filetype != "pdf" && $filetype != "jpg") {
+    //  echo "Sorry, only PDF,DOC and XLS files are allowed.";
+     $uploadOk = 0;
+ }
+
+ // Check if $uploadOk is set to 0 by an error
+ if ($uploadOk == 0) {
+    //  echo "Sorry, your file was not uploaded.";
+     // if everything is ok, try to upload file
+ } else {
+     if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+         // echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+     } else {
+        //   echo "Sorry, there was an error uploading your file .";
+     }
+ }
+
  $id = isset($_GET['id']) ? $_GET['id'] : '';
 // echo"$id"; 
 $query = "SELECT * FROM `table1` WHERE id=$id";
@@ -96,11 +134,13 @@ $query = "SELECT * FROM `table1` WHERE id=$id";
                             <span class="input-group-addon"><i class="fa fa-female"></i> | <i
                                     class="fa fa-male"></i></span>
                             <select id="DDL_Gender" name="gender" class="form-control">
+
                                 <option value="Male" name="gender" 
 								<?php echo $row['gender']=="male"?"checked=checked":""; ?>>
                                     <label>Male</label></option>
                                 <option value="Female" name="gender"
-								<?php echo $row['gender']=="female"?"checked=checked":""; ?>><label>Female</label>
+								<?php echo $row['gender']=="female"?"checked=checked":""; ?>>
+                                    <label>Female</label>
                                 </option>
                             </select>
                         </div>
@@ -124,15 +164,7 @@ $query = "SELECT * FROM `table1` WHERE id=$id";
                         <small id="EmailIdValidation" class="text-danger"></small>
                     </div>
 
-                    <!-- <div class="form-group">
-						<b>DOB</b>
-						<div class="input-group">
-							<span class="input-group-addon"><i class="fa fa-birthday-cake"></i></span>
-							<input id="DOB" name="dob" type="text" maxlength="50" class="form-control"
-                            value="</?php echo $row['dob'];?>" />
-						</div>
-						<small id="DOBValidation" class="text-danger"></small>
-					</div> -->
+                    
 
                     <div class="form-group">
 
@@ -178,26 +210,16 @@ $query = "SELECT * FROM `table1` WHERE id=$id";
                         <small id="FileValidation" class="text-danger"></small>
                     </div>
 
-                    <div class="form-group">
+                    <!-- <div class="form-group">
 					<b>Country</b>
 					<div class="input-group">
-					<input type="checkbox" id="Country" name="Country[]"value="India"
-                            <?php if(in_array("India",$check)) { ?> checked="checked" <?php } ?> 
-                            >India<br/>
-            		<input type="checkbox" id="Country" name="Country[]" value="USA"
-                              <?php if(in_array("USA",$check)) { ?> checked="checked" <?php } ?> 
-                             >USA<br/>
-            		<input type="checkbox" id="Country" name="Country[]"  value="Australia"
-                              <?php if(in_array("Australia",$check)) { ?> checked="checked" <?php } ?> 
-                             >Australia<br/>
-            		<input type="checkbox" id="Country" name="Country[]" value="Europe"
-                              <?php if(in_array("Europe",$check)) { ?> checked="checked" <?php } ?> 
-                             >Europe<br/>
-           			<input type="checkbox" id="Country" name="Country[]" value="Italy"
-                              <?php if(in_array("Italy",$check)) { ?> checked="checked" <?php } ?>
-                             >Italy<br/>
+					<input type="checkbox" id="Country" name="Country[]" value="India" <?php if(explode(",",$row['country']=="India")){echo "checked";}?>>India<br/>
+            		<input type="checkbox" id="Country" name="Country[]" value="USA" <?php if(explode(",",$row['country']=="USA")){echo "checked";}?>>USA<br/>
+            		<input type="checkbox" id="Country" name="Country[]" value="Australia" <?php if(explode(",",$row['country']=="Australia")){echo "checked";}?>>Australia<br/>
+            		<input type="checkbox" id="Country" name="Country[]" value="Europe" <?php if(explode(",",$row['country']=="Europe")){echo "checked";}?>>Europe<br/>
+           			<input type="checkbox" id="Country" name="Country[]" value="Italy" <?php if(explode(",",$row['country']=="Italy")){echo "checked";}?>>Italy<br/>
 					</div>
-					</div>
+					</div> -->
 
 
                     <div class="form-group">

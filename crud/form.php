@@ -3,6 +3,7 @@
         <title>Registeration Form</title>
                 
 		<link href="css/bootstrap/bootstrap.css" type="text/css" rel="stylesheet" />
+		<link type="text/css" href="css/form.css"/>
 
 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
@@ -14,184 +15,11 @@
 
         <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk="   crossorigin="anonymous"></script>
 
-
-		
-		<script type="text/javascript">
-
-var $FNameLNameRegEx = /^([a-zA-Z]{2,20})$/;
-			var $FullNameRegEx = /^([a-zA-Z ]{2,40})$/;
-			var $BankAccountNameRegEx = /^([a-zA-Z ]{2,60})$/;
-			var $PasswordRegEx = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,12}$/;
-
-			var $EmailIdRegEx = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,8}\b$/i;
-			var $ConNoRegEx = /^([0-9]{10})$/;
-			var $AgeRegEx = /^([0-9]{1,2})$/;
-			var $AadhaarNoRegEx = /^([0-9]{12})$/;
-			var $GSTNoRegEx=/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
-			var $IndianDrivingLicenseNoRegEx = /^([A-Z]{2,3}[-/0-9]{8,13})$/;
-			var $IndianVehicleRegNoRegEx = /^([A-Z]{2}[0-9]{1,2}[A-Z]{1,3}[0-9]{1,4})$/;
-			var $PincodeRegEx = /^[1-9][0-9]{5,6}$/;
-			var $PANNoRegEx = /^[A-Z]{3}[ABCFGHLJPT][A-Z][0-9]{4}[A-Z]$/;
-			var $IFSCCodeRegEx = /^[A-Za-z]{4}0[A-Z0-9a-z]{6}$/;
-			var $BankAccountNoRegEx = /^([0-9]{9,18})$/;
-			var $PostTitleRegex =/^(.{30,300})$/;
-			var $PostDescRegex = /^(.{100,3000})$/;
-			var $LatitudeLongitude=/^(-?(?:1[0-7]|[1-9])?\d(?:\.\d{1,8})?|180(?:\.0{1,8})?)$/;
-		
-
-			$(document).ready(function(){			
-				
-				var TxtNameFlag=false,TxtContactNoFlag=false,TxtEmailIdFlag=false,TxtContactMsgFlag=false,TxtDOBFlag;
-							
-				$("#Firstname").blur(function(){
-					$("#FirstnameValidation").empty();
-					if($(this).val()=="" || $(this).val()==null)
-					{
-						$("#FirstnameValidation").html("(*) Firstname required..!!");
-						TxtNameFlag=false;
-					}
-					else{
-						if(!$(this).val().match($FNameLNameRegEx))
-						{
-							$("#FirstnameValidation").html("(*) Invalid firstname..!!");
-							TxtNameFlag=false;
-						}
-						else{
-							TxtNameFlag=true;
-						}
-					}
-				});
-
-				$("#Lastname").blur(function(){
-					$("#LastnameValidation").empty();
-					if($(this).val()=="" || $(this).val()==null)
-					{
-						$("#LastnameValidation").html("(*) Firstname required..!!");
-						TxtNameFlag=false;
-					}
-					else{
-						if(!$(this).val().match($FNameLNameRegEx))
-						{
-							$("#LastnameValidation").html("(*) Invalid firstname..!!");
-							TxtNameFlag=false;
-						}
-						else{
-							TxtNameFlag=true;
-						}
-					}
-				});
-				var $ConNoRegEx = /^([0-9]{10})$/;
-
-				$("#Contactno").blur(function(){
-					$("#ContactnoValidation").empty();
-					if($(this).val()=="" || $(this).val()==null)
-					{
-						$("#ContactnoValidation").html("(*) Contact no. required..!!");
-						TxtContactNoFlag=false;
-					}
-					else{
-						if(!$(this).val().match($ConNoRegEx))
-						{
-							$("#ContactnoValidation").html("(*) Invalid contact no..!!");
-							TxtContactNoFlag=false;
-						}
-						else{
-							TxtContactNoFlag=true;
-						}
-					}
-				});
-				 
-
-				$("#EmailId").blur(function(){
-					$("#EmailIdValidation").empty();
-					if($(this).val()=="" || $(this).val()==null)
-					{
-						$("#EmailIdValidation").html("(*) Email id required..!!");
-						TxtEmailIdFlag=false;
-					}
-					else{
-						if(!$(this).val().match($EmailIdRegEx))
-						{
-							$("#EmailIdValidation").html("(*) Invalid email id..!!");
-							TxtEmailIdFlag=false;
-						}
-						else{
-							TxtEmailIdFlag=true;
-						}
-					}
-				});
-
-				$("#DOB").blur(function(){
-					$("#DOBValidation").empty();
-					if($(this).val()=="" || $(this).val()==null)
-					{
-						$("#DOBValidation").html("(*) DOB id required..!!");
-						TxtDOBFlag=false;
-					}
-				});
-
-				$("#DOB").datepicker({
-					changeMonth:true,
-					changeYear:true,
-					// yearRange:"1960:2022",
-					maxDate:"-18y",
-					
-				});
-
-				
-				$("#Age").blur(function(){
-					$("#AgeValidation").empty();
-					if($(this).val()=="" || $(this).val()==null)
-					{
-						$("#AgeValidation").html("(*) Age id required..!!");
-						TxtEmailIdFlag=false;
-					}
-					else{
-						if(!$(this).val().match($AgeRegEx))
-						{
-							$("#AgeValidation").html("(*) Invalid Age..!!");
-							TxtEmailIdFlag=false;
-						}
-						else{
-							TxtEmailIdFlag=true;
-						}
-					}
-				});
-
-
-
-				
-				$("#Password").blur(function(){
-					$("#PasswordValidation").empty();
-					if($(this).val()=="" || $(this).val()==null)
-					{
-						$("#PasswordValidation").html("(*)Password required..!!");
-						TxtEmailIdFlag=false;
-					}
-					else{
-						if(!$(this).val().match($PasswordRegEx))
-						{
-							$("#PasswordValidation").html("(*) Invalid Password..!!");
-							TxtEmailIdFlag=false;
-						}
-						else{
-							TxtEmailIdFlag=true;
-						}
-					}
-				});
-
-				
-
-
-			});
-		</script>
-		<script>var $FNameLNameRegEx = /^([a-zA-Z]{2,20})$/;</script>
-		
-		<style type="text/css">
+		<script type="text/javascript" src="js/bootstrap/formvalidation.js"> </script>
+		<style>
 			#CNAForms{box-shadow:0px 0px 3px blue; background-color: gainsboro; margin-top:30px;margin-bottom:30px;}
 			i.fa,b{color:teal;}
 		</style>
-		
     </head>
     <body>
 
@@ -300,7 +128,7 @@ var $FNameLNameRegEx = /^([a-zA-Z]{2,20})$/;
                         <small id="FileValidation" class="text-danger"></small>
                     </div>
 
-					<div class="form-group">
+					<!-- <div class="form-group">
 					<b>Country</b>
 					<div class="input-group">
 					<input type="checkbox" id="Country" name="Country[]" value="India">India<br/>
@@ -309,7 +137,7 @@ var $FNameLNameRegEx = /^([a-zA-Z]{2,20})$/;
             		<input type="checkbox" id="Country" name="Country[]" value="Europe">Europe<br/>
            			<input type="checkbox" id="Country" name="Country[]" value="Italy">Italy<br/>
 					</div>
-					</div>
+					</div> -->
 
 
 					<div class="form-group">
@@ -320,9 +148,19 @@ var $FNameLNameRegEx = /^([a-zA-Z]{2,20})$/;
 						</div>
 						<small id="PasswordValidation" class="text-danger"></small>
 					</div>
+
+					<div class="form-group">
+						<b>Confirm Password</b>
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-key"></i></span>
+							<input id="cPassword" name="cpassword" type="text" placeholder="Enter confirm password here.." maxlength="12" class="form-control" />
+						</div>
+						<small id="cPasswordValidation" class="text-danger"></small>
+					</div>
 					<div class="form-group">
 						<!-- <a class="btn btn-primary" ><i class="fa fa-user-plus" name="btn" style="color:white;"></i> Create New Account</a> -->
 						<input type="submit" name="submit"  style="border-radius: 5px;">
+						
 						
 					</div>
 				</div>

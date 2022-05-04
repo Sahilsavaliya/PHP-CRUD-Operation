@@ -14,13 +14,13 @@ if(isset($_POST))
  $age = $_POST['age'];
  $pass = $_POST['password'];
  $fi = $_FILES['fileToUpload']['name'];
- $check = $_POST['Country'];
- $check1= $row['Country'];
- $check2= explode(", ", $check1);
+//  $check = $_POST['Country'];
+//  $check1= $row['Country'];
+//  $check2= explode(",", $row['Country']);
 
  
 
- $query = "UPDATE `table1` SET `id`='$id',`fname`='$fn',`lname`='$ln',`gender`='$gen',`contact`='$con',`email`='$em',`designation`='$des',`age`='$age',`password`='$pass',`file`='$fi' ,`Country`='$check' WHERE id=$id";
+ $query = "UPDATE `table1` SET `id`='$id',`fname`='$fn',`lname`='$ln',`gender`='$gen',`contact`='$con',`email`='$em',`designation`='$des',`age`='$age',`password`='$pass',`file`='$fi' WHERE id=$id";
 
  // print_r($query);
 $result=mysqli_query($conn,$query);

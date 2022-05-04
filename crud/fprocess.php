@@ -8,7 +8,7 @@ if(!isset($_POST['submit']))
 	header("location:form.php");
 	exit();
 }
-$id = $_POST['id'];
+@$id = $_POST['id'];
 $fn = $_POST['fname'];
 $ln = $_POST['lname'];
 $gen = $_POST['gender'];
@@ -17,9 +17,10 @@ $em = $_POST['email'];
 $des = $_POST['designation'];
 $age = $_POST['age'];
 $pass = $_POST['password'];
+$cpass = $_POST['cpassword'];
 $fi = $_FILES['fileToUpload']['name'];
-$check = $_POST['Country'];
-$check = implode(", ", $_POST['Country']);
+// @$check = $_POST['Country'];
+// @$check = implode(",", $_POST['Country']);
 
 $target_dir = "upload/";
     $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
@@ -44,13 +45,14 @@ $target_dir = "upload/";
         // if everything is ok, try to upload file
     } else {
         if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-            echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+            // echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
         } else {
-            echo "Sorry, there was an error uploading your file.";
+            echo "Sorry, there was an error uploading your file .";
         }
     }
 
     $qem = mysqli_query($conn,"SELECT * from table1 WHERE email='$em'");
+
 
     if(mysqli_num_rows($qem)>0){
         // $_SESSION['status'] = "Email id already used!!";
@@ -60,10 +62,10 @@ $target_dir = "upload/";
 
     }else{
 
-   
+     if($fn !="" && $ln !="" && $gen !="" && $em !="" && $des !="" && $age !="" && $pass !="" && $cpass !=""  && $fi !=""){
 
-$query = "INSERT INTO `table1`
- VALUES ('$id','$fn','$ln','$gen','$con','$em','$des','$age','$pass','$fi','$check')";
+ $query="INSERT INTO `table1`
+ VALUES ('$id','$fn','$ln','$gen','$con','$em','$des','$age','$pass','$fi')";
 // echo "$query";
 
 
@@ -71,12 +73,17 @@ $result=mysqli_query($conn,$query);
 var_dump($result);
 if ($result)
  {
+     
 	echo "Insert SUCCESS";
-	 header("location:view.php");
+	header("location:index.php");
 }
 else 
  {
-	 header("location:form.php");
+	//  header("location:form.php");
      echo "not insert";
  }
+        }
+   
+
+
 }	
