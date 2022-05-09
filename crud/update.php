@@ -1,10 +1,10 @@
 <?php
-//error_reporting(0);
- session_start();
  require 'dbconnect1.php';
-if(isset($_POST))
+ $gid=$_GET['id'];
+
+
+if(isset($_POST['submit']))
 {
- $id = $_POST['id'];
  $fn = $_POST['fname'];
  $ln = $_POST['lname'];
  $gen = $_POST['gender'];
@@ -20,9 +20,8 @@ if(isset($_POST))
 
  
 
- $query = "UPDATE `table1` SET `id`='$id',`fname`='$fn',`lname`='$ln',`gender`='$gen',`contact`='$con',`email`='$em',`designation`='$des',`age`='$age',`password`='$pass',`file`='$fi' WHERE id=$id";
-
- // print_r($query);
+$query = "UPDATE `table1` Set `fname`='$fn',`lname`='$ln',`gender`='$gen',`contact`='$con',`email`='$em',`designation`='$des',`age`='$age',`password`='$pass',`file`='$fi' WHERE `id` = '$gid'";
+ print_r($query);
 $result=mysqli_query($conn,$query);
 print_r($result);
 
@@ -34,7 +33,7 @@ if($result)
 }
 else
 {
-	echo "Error...";
+	echo "Error...".mysqli_error($conn);
 
 }
 }

@@ -1,7 +1,3 @@
-<?php
-session_start();
-?>
-
 <html>
     <head>
         <title>Login Form</title>
@@ -24,14 +20,32 @@ session_start();
 		
 		
 		<style type="text/css">
-			#CNAForms{box-shadow:0px 0px 3px blue; background-color: gainsboro; margin-top:30px;margin-bottom:30px;}
-			i.fa,b{color:teal;}
-		</style>
+            #SignUpForm {
+                box-shadow: 0px 0px 5px green;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                background: white;
+                border-top-right-radius: 25px;
+                border-bottom-left-radius: 25px;
+            }
+            i.fa, i {
+                color: green;
+            }
+            body {
+                background-color: white;
+            }
+        </style>
 		
     </head>
     <body>
 
-	<?php
+		<?php
+
+			if(! isset($_SESSION)) {
+			session_start();
+			}	if(isset($_SESSION['email'])){
+			header('location:view.php');
+			}
 
 	 require 'dbconnect1.php';
         
@@ -49,10 +63,13 @@ session_start();
              }
          }
          else{
-             echo "Email And Password Not Valid.";
+             echo "<center>"."Email And Password Not Valid."."</center>";
          }
+	}
+	// else{
+	// 	echo"<center>". "Enter Email And Password!!!"."</center>";
+	// }
 
-     }
 	?>
 	<form  method="POST"  enctype="multipart/form-data"  action="">
 		<div class="container">
@@ -63,7 +80,7 @@ session_start();
 						<b>Email</b>
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-							<input id="EmailId" name="email" type="text" placeholder="Enter email id here.." maxlength="50" class="form-control" />
+							<input id="EmailId" name="email" type="text" placeholder="Enter email id here.." maxlength="50" class="form-control" require/>
 						</div>
 						<small id="EmailIdValidation" class="text-danger"></small>
 					</div>
@@ -71,17 +88,17 @@ session_start();
 						<b>Password</b>
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-key"></i></span>
-							<input id="Password" name="password" type="text" placeholder="Enter password here.." maxlength="12" class="form-control" />
+							<input id="Password" name="password" type="password" placeholder="Enter password here.." maxlength="12" class="form-control" require/>
 						</div>
 						<small id="PasswordValidation" class="text-danger"></small>
 					</div>
 					<div class="form-group">
 						<!-- <a class="btn btn-primary" ><i class="fa fa-user-plus" name="btn" style="color:white;"></i> Create New Account</a> -->
-						<input type="submit" name="submit"  style="border-radius: 5px;">
+						<input type="submit" name="submit" class="btn btn-primary" value="Login" style="border-radius: 5px;">
 						
 					</div>
-                    <div class="form-group">
-						<a href="form.php">Registeration</a>
+                    <div>
+						<a href="signupform.php">Registeration</a>
 					</div>
 				</div>
 			</div>

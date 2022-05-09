@@ -2,7 +2,7 @@
 if(! isset($_SESSION)) {
     session_start();
 }if(!($_SESSION['email'])) {
-    header('location: index.php');
+    header('location:index.php');
 }
 ?>
 
@@ -15,15 +15,20 @@ if(! isset($_SESSION)) {
 
 </script>
 
-    <script defer="" src="/cdn-cgi/zaraz/s.js?z=JTdCJTIyZXhlY3V0ZWQlMjIlM0ElNUIlNUQlMkMlMjJ0cmFja3MlMjIlM0ElNUIlNUQlMkMlMjJ0JTIyJTNBJTIyVGFibGUlMjAwNiUyMiUyQyUyMnclMjIlM0ExNTM2JTJDJTIyaCUyMiUzQTg2NCUyQyUyMmolMjIlM0E3NTQlMkMlMjJlJTIyJTNBMTUzNiUyQyUyMmwlMjIlM0ElMjJodHRwcyUzQSUyRiUyRnByZXZpZXcuY29sb3JsaWIuY29tJTJGdGhlbWUlMkZib290c3RyYXAlMkZ0YWJsZS0wNiUyRiUyMiUyQyUyMnIlMjIlM0ElMjIlMjIlMkMlMjJrJTIyJTNBMjQlMkMlMjJuJTIyJTNBJTIyVVRGLTglMjIlMkMlMjJvJTIyJTNBLTMzMCU3RA=="></script>
+<script defer=""
+        src="/cdn-cgi/zaraz/s.js?z=JTdCJTIyZXhlY3V0ZWQlMjIlM0ElNUIlNUQlMkMlMjJ0cmFja3MlMjIlM0ElNUIlNUQlMkMlMjJ0JTIyJTNBJTIyVGFibGUlMjAwNiUyMiUyQyUyMnclMjIlM0ExNTM2JTJDJTIyaCUyMiUzQTg2NCUyQyUyMmolMjIlM0E3NTQlMkMlMjJlJTIyJTNBMTUzNiUyQyUyMmwlMjIlM0ElMjJodHRwcyUzQSUyRiUyRnByZXZpZXcuY29sb3JsaWIuY29tJTJGdGhlbWUlMkZib290c3RyYXAlMkZ0YWJsZS0wNiUyRiUyMiUyQyUyMnIlMjIlM0ElMjIlMjIlMkMlMjJrJTIyJTNBMjQlMkMlMjJuJTIyJTNBJTIyVVRGLTglMjIlMkMlMjJvJTIyJTNBLTMzMCU3RA==">
+    </script>
     <script nonce="0dbb1351-023f-4476-8b7a-600fccbf984e"></script>
     <script type="text/javascript" src="js/bootstrap/viewjs.js"></script>
-    <title>View Database</title>
+    <title> Display Records</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,100,300,700" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/A.style.css.pagespeed.cf.q2AVU534B4.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="css/view.css">
    
 
@@ -38,7 +43,7 @@ if(! isset($_SESSION)) {
 
     ?>
 
-<h1 style="text-align: center;"> Display Records </h1></td>
+<h1 style="text-align: center;"> Display Records </h1></td><hr>
 
 <br>
 <section class="ftco-section">
@@ -114,9 +119,10 @@ if(! isset($_SESSION)) {
                                     }
                     ?>
                         </table><br><br>
-                        <td class="tabcon"><a href="logout.php"onclick="return confirm('Are you sure want to logout?')"><button style="background-color: red;">Logout</button></a></td>
-
-                        <?php
+                        <td><a href="logout.php"
+                                onclick="return confirm('Are you sure want to logout?')"><button type="button"
+                                    class="btn btn-danger">Logout</button></td>
+                        <!-- <?php
 $thelist = "";
   if ($handle = opendir('upload')) {
     while (false !== ($file = readdir($handle))) {
@@ -141,7 +147,7 @@ $thelist = "";
     <script src="js/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
     <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194" integrity="sha512-Gi7xpJR8tSkrpF7aordPZQlW2DLtzUlZcumS8dMQjwDHEnw9I7ZLyiOj/6tZStRBGtGgN6ceN6cMH8z7etPGlw==" data-cf-beacon="{&quot;rayId&quot;:&quot;6f150a492c2e8af3&quot;,&quot;token&quot;:&quot;cd0b4b3a733644fc843ef0b185f98241&quot;,&quot;version&quot;:&quot;2021.12.0&quot;,&quot;si&quot;:100}" crossorigin="anonymous"></script>
-
+ -->
 
 </body>
 

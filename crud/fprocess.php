@@ -2,11 +2,10 @@
 session_start();
 require 'dbconnect1.php';
 
-// require 'file.php';
-if(!isset($_POST['submit']))
-{
-	header("location:form.php");
-	exit();
+
+if (!isset($_POST['submit'])) {
+    header("location:signupform.php");
+    exit();
 }
 @$id = $_POST['id'];
 $fn = $_POST['fname'];
@@ -23,67 +22,63 @@ $fi = $_FILES['fileToUpload']['name'];
 // @$check = implode(",", $_POST['Country']);
 
 $target_dir = "upload/";
-    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-    $uploadOk = 1;
-    $filetype = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+$uploadOk = 1;
+$filetype = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
-    // Check file size
-    if ($_FILES["fileToUpload"]["size"] > 500000) {
-        echo "Sorry, your file is too large.";
-        $uploadOk = 0;
-    }
-    
-    // Allow certain file formats
-    if($filetype != "txt" && $filetype != "pdf" && $filetype != "jpg") {
-        echo "Sorry, only PDF,DOC and XLS files are allowed.";
-        $uploadOk = 0;
-    }
-
-    // Check if $uploadOk is set to 0 by an error
-    if ($uploadOk == 0) {
-        echo "Sorry, your file was not uploaded.";
-        // if everything is ok, try to upload file
-    } else {
-        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-            // echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
-        } else {
-            echo "Sorry, there was an error uploading your file .";
-        }
-    }
-
-    $qem = mysqli_query($conn,"SELECT * from table1 WHERE email='$em'");
-
-
-    if(mysqli_num_rows($qem)>0){
-        // $_SESSION['status'] = "Email id already used!!";
-        echo "<br>";
-        echo "Email id already used!!";
-        // header("location:form.php");
-
-    }else{
-
-     if($fn !="" && $ln !="" && $gen !="" && $em !="" && $des !="" && $age !="" && $pass !="" && $cpass !=""  && $fi !=""){
-
- $query="INSERT INTO `table1`
- VALUES ('$id','$fn','$ln','$gen','$con','$em','$des','$age','$pass','$fi')";
-// echo "$query";
-
-
-$result=mysqli_query($conn,$query);
-var_dump($result);
-if ($result)
- {
-     
-	echo "Insert SUCCESS";
-	header("location:index.php");
+// Check file size
+if ($_FILES["fileToUpload"]["size"] > 500000) {
+    echo "Sorry, your file is too large.";
+    $uploadOk = 0;
 }
-else 
- {
-	//  header("location:form.php");
-     echo "not insert";
- }
+
+// Allow certain file formats
+if ($filetype != "txt" && $filetype != "pdf" && $filetype != "jpg") {
+    echo "Sorry, only PDF,DOC and XLS files are allowed.";
+    $uploadOk = 0;
+}
+
+// Check if $uploadOk is set to 0 by an error
+if ($uploadOk == 0) {
+    echo "Sorry, your file was not uploaded.";
+    // if everything is ok, try to upload file
+} else {
+    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+        // echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+    } else {
+        echo "Sorry, there was an error uploading your file .";
+    }
+}
+
+$qem = mysqli_query($conn, "SELECT * from table1 WHERE email='$em'");
+
+
+if (mysqli_num_rows($qem) > 0) {
+    // $_SESSION['status'] = "Email id already used!!";
+    echo "<br>";
+    echo "Email id already used!!";
+    // header("location:form.php");
+
+} else {
+
+    if ($fn != "" && $ln != "" && $gen != "" && $em != "" && $des != "" && $age != "" && $pass != "" && $cpass != ""  && $con!= "") {
+
+        $query = "INSERT INTO `table1`(`id`, `fname`, `lname`, `gender`, `contact`, `email`, `designation`, `age`, `password`, `file`) VALUES
+         ('$id','$fn','$ln','$gen','$con','$em','$des','$age','$pass','$fi')";
+        echo "$query";
+
+
+        $result = mysqli_query($conn, $query);
+        if ($result) {
+
+            echo "Insert SUCCESS";
+            header("location:index.php");
+
         }
-   
-
-
-}	
+         else {
+            // header("location:signupform.php");
+            echo "not insert".mysqli_error($conn);
+        }
+    }
+}
+?>
