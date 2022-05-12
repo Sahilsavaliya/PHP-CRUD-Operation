@@ -1,7 +1,6 @@
 <?php 
-if(! isset($_SESSION)) {
-    session_start();
-}if(!($_SESSION['email'])) {
+session_start();
+if(!isset($_SESSION['email'])) {
     header('location:index.php');
 }
 ?>
@@ -71,7 +70,6 @@ if(! isset($_SESSION)) {
                                     <td class="tabcon"><b>Age</b></td>
                                     <td class="tabcon"><b>Password</b></td>
                                     <td class="tabcon"><b>file</b></td>
-                                    <!-- <td class="tabcon"><b>Country</b></td> -->
                                     <td class="tabcon"><b>Update</b></td>
                                     <td class="tabcon"><b>Delete</b></td>
                                     
@@ -100,8 +98,7 @@ if(! isset($_SESSION)) {
                                     <td class="tabcon"><?php echo $row['designation'] ?></td>
                                     <td class="tabcon"><?php echo $row['age'] ?></td>
                                     <td class="tabcon"><?php echo $row['password'] ?></td>
-                                    <td class="tabcon"><?php echo $row['file'] ?></td> 
-                                    <!-- <td class="tabcon"><?php echo $row['country'] ?></td> -->
+                                    <td class="tabcon"><a href="upload/<?php echo $row['file']?>"><?php echo $row['file']?></a></td> 
                                     <td class="tabcon"><a href="edit.php?id=<?php echo $row['id']; ?>" title="Edit"><button style="background-color: skyblue;">Edit</button></a></td>
                                     <!-- <td class="tabcon"><a href="delete.php?id=</ ?php echo $row['id']; ?>" title="Delete"><button style="background-color: red;">Delete</button></a></td> -->
                                     <td class="tabcon"><a href="delete.php?id=<?php echo $row['id']; ?>"onclick="return confirm('Are you sure want to delete?')"title="delete"><button style="background-color: red;">Delete</button></a></td>
@@ -122,7 +119,8 @@ if(! isset($_SESSION)) {
                         <td><a href="logout.php"
                                 onclick="return confirm('Are you sure want to logout?')"><button type="button"
                                     class="btn btn-danger">Logout</button></td>
-                        <!-- <?php
+<?php
+
 $thelist = "";
   if ($handle = opendir('upload')) {
     while (false !== ($file = readdir($handle))) {
@@ -147,7 +145,7 @@ $thelist = "";
     <script src="js/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
     <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194" integrity="sha512-Gi7xpJR8tSkrpF7aordPZQlW2DLtzUlZcumS8dMQjwDHEnw9I7ZLyiOj/6tZStRBGtGgN6ceN6cMH8z7etPGlw==" data-cf-beacon="{&quot;rayId&quot;:&quot;6f150a492c2e8af3&quot;,&quot;token&quot;:&quot;cd0b4b3a733644fc843ef0b185f98241&quot;,&quot;version&quot;:&quot;2021.12.0&quot;,&quot;si&quot;:100}" crossorigin="anonymous"></script>
- -->
+
 
 </body>
 

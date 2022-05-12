@@ -8,25 +8,40 @@ var $EmailIdRegEx = /^\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,8}\b$/i;
 var $ConNoRegEx = /^([0-9]{10})$/;
 var $AgeRegEx = /^([0-9]{1,2})$/;
 var $AadhaarNoRegEx = /^([0-9]{12})$/;
-var $GSTNoRegEx=/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
+var $GSTNoRegEx = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
 var $IndianDrivingLicenseNoRegEx = /^([A-Z]{2,3}[-/0-9]{8,13})$/;
 var $IndianVehicleRegNoRegEx = /^([A-Z]{2}[0-9]{1,2}[A-Z]{1,3}[0-9]{1,4})$/;
 var $PincodeRegEx = /^[1-9][0-9]{5,6}$/;
 var $PANNoRegEx = /^[A-Z]{3}[ABCFGHLJPT][A-Z][0-9]{4}[A-Z]$/;
 var $IFSCCodeRegEx = /^[A-Za-z]{4}0[A-Z0-9a-z]{6}$/;
 var $BankAccountNoRegEx = /^([0-9]{9,18})$/;
-var $PostTitleRegex =/^(.{30,300})$/;
+var $PostTitleRegex = /^(.{30,300})$/;
 var $PostDescRegex = /^(.{100,3000})$/;
-var $LatitudeLongitude=/^(-?(?:1[0-7]|[1-9])?\d(?:\.\d{1,8})?|180(?:\.0{1,8})?)$/;
+var $LatitudeLongitude = /^(-?(?:1[0-7]|[1-9])?\d(?:\.\d{1,8})?|180(?:\.0{1,8})?)$/;
+var $cpassword = $PasswordRegEx;
 
-var $FirstNameValidationFlag = false, $LastNameValidationFlag = false, $ContactNoValidationFlag = false, $EmailValidationFlag = false, $PasswordValidationFlag = false, $AgeValidationFlag = false;
+var $FirstNameValidationFlag = false, $LastNameValidationFlag = false, $ContactNoValidationFlag = false, $EmailValidationFlag = false, $PasswordValidationFlag = false, $cPasswordValidationFlag = false, $AgeValidationFlag = false;
 
 // Initializing JQuery
-$(document).ready(function(){
-    // First Name Validation
-    $('#FirstName').blur(function(){
+$(document).ready(function () {
+
+    // Designation Validation
+    $('#Designation').blur(function () {
         $('#FirstNameValidation').empty();
-        if($(this).val() == '') {
+        if ($(this).val() == '') {
+            $('#DesignationValidation').html('Field is mandatory...!');
+        }
+        else {
+            if (!$(this).val().match($FNameLNameRegEx)) {
+                $('#DesignationValidation').html('Invalid First Name...!');
+            }
+        }
+    });
+
+    // First Name Validation
+    $('#FirstName').blur(function () {
+        $('#FirstNameValidation').empty();
+        if ($(this).val() == '') {
             $('#FirstNameValidation').html('Field is mandatory...!');
         }
         else {
@@ -37,9 +52,9 @@ $(document).ready(function(){
     });
 
     // Last Name Validation
-    $('#LastName').blur(function(){
+    $('#LastName').blur(function () {
         $('#LastNameValidation').empty();
-        if($(this).val() == '') {
+        if ($(this).val() == '') {
             $('#LastNameValidation').html('Field is mandatory...!');
         }
         else {
@@ -50,9 +65,9 @@ $(document).ready(function(){
     });
 
     // Phone Validation
-    $('#ContactNo').blur(function(){
+    $('#ContactNo').blur(function () {
         $('#ContactNoValidation').empty();
-        if($(this).val() == '') {
+        if ($(this).val() == '') {
             $('#ContactNoValidation').html('Field is mandatory...!');
         }
         else {
@@ -62,10 +77,12 @@ $(document).ready(function(){
         }
     });
 
+
+
     // Email Validation
-    $('#Email').blur(function(){
+    $('#Email').blur(function () {
         $('#EmailValidation').empty();
-        if($(this).val() == '') {
+        if ($(this).val() == '') {
             $('#EmailValidation').html('Field is mandatory...!');
         }
         else {
@@ -76,24 +93,47 @@ $(document).ready(function(){
     });
 
     // Password Validation
-    $('#Password').blur(function(){
+    $('#Password').blur(function () {
         $('#PasswordValidation').empty();
-        if($(this).val() == '') {
+        if ($(this).val() == '') {
             $('#PasswordValidation').html('Field is mandatory...!');
         }
         else {
             if (!$(this).val().match($PasswordRegEx)) {
-                $('#PasswordValidation').html('Invalid Contact Number...!');
+                $('#PasswordValidation').html('Invalid password...!');
             }
         }
     });
 
 
 
+    $("#cPassword").blur(function () {
+        $("#cPasswordValidation").empty();
+        if ($(this).val() == "" || $(this).val() == null) {
+            $("#cPasswordValidation").html("(*) Confirm Password required..!!");
+            cPasswordValidationFlag = false;
+        }
+        else {
+            if ($(this).val() != $("#Password").val()) {
+                $("#cPasswordValidation").html("(*) Password Does Not Match..!!");
+
+                cPasswordValidationFlag = false;
+            }
+
+            else {
+                cPasswordValidationFlag = true;
+            }
+
+        }
+
+    });
+
+
+
     // Age Validation
-    $('#Age').blur(function(){
+    $('#Age').blur(function () {
         $('#AgeValidation').empty();
-        if($(this).val() == '') {
+        if ($(this).val() == '') {
             $('#AgeValidation').html('Field is mandatory...!');
         }
         else {
@@ -104,11 +144,11 @@ $(document).ready(function(){
     });
 
     // First Name Validation on Keypress
-    $('#FirstName').keypress(function(e){
+    $('#FirstName').keypress(function (e) {
         $('#FirstNameValidation').empty();
         var flag = false;
         var ascciValue = parseInt(e.which);
-        if((ascciValue>=65 && ascciValue<=90) || (ascciValue>=97 && ascciValue<=122)) {
+        if ((ascciValue >= 65 && ascciValue <= 90) || (ascciValue >= 97 && ascciValue <= 122)) {
             flag = true;
         }
         else {
@@ -118,11 +158,11 @@ $(document).ready(function(){
     });
 
     // Last Name Validation on Keypress
-    $('#LastName').keypress(function(e){
+    $('#LastName').keypress(function (e) {
         $('#LastNameValidation').empty();
         var flag = false;
         var ascciValue = parseInt(e.which);
-        if((ascciValue>=65 && ascciValue<=90) || (ascciValue>=97 && ascciValue<=122)) {
+        if ((ascciValue >= 65 && ascciValue <= 90) || (ascciValue >= 97 && ascciValue <= 122)) {
             flag = true;
         }
         else {
@@ -132,11 +172,11 @@ $(document).ready(function(){
     });
 
     // Contact Number Validation on Keypress
-    $('#ContactNo').keypress(function(e){
+    $('#ContactNo').keypress(function (e) {
         $('#ContactNoValidation').empty();
         var flag = false;
         var ascciValue = parseInt(e.which);
-        if(ascciValue>=48 && ascciValue<=57) {
+        if (ascciValue >= 48 && ascciValue <= 57) {
             flag = true;
         }
         else {
@@ -146,11 +186,11 @@ $(document).ready(function(){
     });
 
     // Age Validation on Keypress
-    $('#Age').keypress(function(e){
+    $('#Age').keypress(function (e) {
         $('#AgeValidation').empty();
         var flag = false;
         var ascciValue = parseInt(e.which);
-        if(ascciValue>=48 && ascciValue<=57) {
+        if (ascciValue >= 48 && ascciValue <= 57) {
             flag = true;
         }
         else {
@@ -160,11 +200,12 @@ $(document).ready(function(){
     });
 
     // All Field Validation when Submit button is clicked
-    $('#BtnSignUp').click(function(){
+    $('#BtnSignUp').click(function () {
+
         // First Name Validation
         $FirstNameValidationFlag = false;
         $('#FirstNameValidation').empty();
-        if($('#FirstName').val() == '') {
+        if ($('#FirstName').val() == '') {
             $('#FirstNameValidation').html('Field is mandatory...!');
         }
         else {
@@ -179,7 +220,7 @@ $(document).ready(function(){
         // Last Name Validation
         $LastNameValidationFlag = false;
         $('#LastNameValidation').empty();
-        if($('#LastName').val() == '') {
+        if ($('#LastName').val() == '') {
             $('#LastNameValidation').html('Field is mandatory...!');
         }
         else {
@@ -194,7 +235,7 @@ $(document).ready(function(){
         // Contact No Validation
         $ContactNoValidationFlag = false;
         $('#ContactNoValidation').empty();
-        if($('#ContactNo').val() == '') {
+        if ($('#ContactNo').val() == '') {
             $('#ContactNoValidation').html('Field is mandatory...!');
         }
         else {
@@ -207,9 +248,9 @@ $(document).ready(function(){
         }
 
         // Email Validation
-        $EmailValidationFlag =false;
+        $EmailValidationFlag = false;
         $('#EmailValidation').empty();
-        if($('#Email').val() == '') {
+        if ($('#Email').val() == '') {
             $('#EmailValidation').html('Field is mandatory...!');
         }
         else {
@@ -224,12 +265,12 @@ $(document).ready(function(){
         // Password Validation
         $PasswordValidationFlag = false;
         $('#PasswordValidation').empty();
-        if($('#Password').val() == '') {
+        if ($('#Password').val() == '') {
             $('#PasswordValidation').html('Field is mandatory...!');
         }
         else {
             if (!$('#Password').val().match($PasswordRegEx)) {
-                $('#PasswordValidation').html('Invalid Contact Number...!');
+                $('#PasswordValidation').html('Invalid password...!');
             }
             else {
                 $PasswordValidationFlag = true;
@@ -257,7 +298,7 @@ $(document).ready(function(){
         // Age Validation
         $AgeValidationFlag = false;
         $('#AgeValidation').empty();
-        if($('#Age').val() == '') {
+        if ($('#Age').val() == '') {
             $('#AgeValidation').html('Field is mandatory...!');
         }
         else {
@@ -271,7 +312,7 @@ $(document).ready(function(){
         //file validation
         $FileValidationFlag = false;
         $('#FileValidation').empty();
-        if($('#File').val() == '') {
+        if ($('#File').val() == '') {
             $('#FileValidation').html('Field is mandatory...!');
         }
 
@@ -279,4 +320,17 @@ $(document).ready(function(){
             alert('Form Submitted Successfully...!');
         }
     });
+
+        // First Name Validation
+        $('#Designation').blur(function () {
+            $('#FirstNameValidation').empty();
+            if ($(this).val() == '') {
+                $('#DesignationValidation').html('Field is mandatory...!');
+            }
+            else {
+                if (!$(this).val().match($FNameLNameRegEx)) {
+                    $('#DesignationValidation').html('Invalid First Name...!');
+                }
+            }
+        });
 });

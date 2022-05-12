@@ -26,6 +26,11 @@ $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
 $filetype = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
+if($pass != $cpass)
+{
+    header("location:signupform.php?pass=Not match password");
+    exit();
+}
 // Check file size
 if ($_FILES["fileToUpload"]["size"] > 500000) {
     echo "Sorry, your file is too large.";
@@ -55,11 +60,13 @@ $qem = mysqli_query($conn, "SELECT * from table1 WHERE email='$em'");
 
 if (mysqli_num_rows($qem) > 0) {
     // $_SESSION['status'] = "Email id already used!!";
-    echo "<br>";
-    echo "Email id already used!!";
+    // echo "<br>";
+    header("location:signupform.php?pass=Email id already used!!");
+    // echo "Email id already used!!";
     // header("location:form.php");
 
-} else {
+}
+ else {
 
     if ($fn != "" && $ln != "" && $gen != "" && $em != "" && $des != "" && $age != "" && $pass != "" && $cpass != ""  && $con!= "") {
 

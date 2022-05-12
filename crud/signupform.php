@@ -1,3 +1,9 @@
+<?php
+session_start();
+if(isset($_SESSION['email'])){
+header('location:view.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -47,6 +53,32 @@
                     <h3 class="text-center"><i class="fa fa-user-plus"></i>&nbsp;<i>Create New Account</i></h3>
 
                     <hr/>
+                    <span style="color:red;text-align: center;">
+
+                        <?php
+
+                        if (isset($_REQUEST['pass'])) {
+
+                            # code...
+
+                            $pass = $_REQUEST['pass'];
+
+                        ?>
+
+                            <p> <?php echo $pass; ?></p>
+
+                        <?php
+
+                        } else {
+
+                            $pass = "";
+
+                        }
+
+                        ?>
+
+                    </span>
+                    <hr>
 
                     <!-- First Name -->
                     <div class="form-group">
@@ -74,8 +106,8 @@
                         <div class="input-group">
                             <span class="input-group-addon" style="color: green;"><i class="fa fa-female" ></i> | <i class="fa fa-male"></i></span>
                             <select id="Gender" name="gender" class="form-control" required>
-								<option value='Female'>Female</option>
-								<option value='Male'>Male</option>
+								<option value='female'>Female</option>
+								<option value='male'>Male</option>
 							</select>
                         </div>
                         <small id="GenderValidation" class="text-danger"></small>
@@ -130,7 +162,7 @@
                         <b>File</b><BR>
                         <div class="input-group">
                             <span class="input-group-addon"></span>
-                            <input type="file" name="fileToUpload" class="form-control" required />
+                            <input type="file" id="checkfile" name="fileToUpload" class="form-control" required />
                             <div id="File"></div>
                         </div>
 						<label style="color: red;font-size:10px">(*/ ONLY PDF,DOC,TEXT FILE )</label>
@@ -160,6 +192,8 @@
                     <center>
                         <div class="form-group">
                             <input id="BtnSignUp" class="btn btn-success" type="submit" value="Sign Up" name="submit" value="Sign Up">
+                            <input type="button" value="Back" class="btn btn-primary" onclick="history.back()" />
+
                         </div>                        
                     </center>
                 </div>

@@ -1,3 +1,38 @@
+<?php
+
+if(! isset($_SESSION)) {
+	session_start();
+}	
+if(isset($_SESSION['email'])){
+header('location:view.php');
+}
+
+require 'dbconnect1.php';
+
+if(isset($_POST['submit'])){
+$email=$_POST['email'];
+$password=$_POST['password'];
+
+$sel="SELECT * FROM table1 where email='$email' AND password='$password' ";
+// echo $sel;
+$result=mysqli_query($conn,$sel);
+if(mysqli_num_rows($result)>0){
+ while($row=mysqli_fetch_assoc($result)){
+	$_SESSION["email"]=$email;
+	header("location:view.php");
+ }
+}
+else{
+ echo "<center>"."Email And Password Not Valid."."</center>";
+}
+}
+// else{
+// 	echo"<center>". "Enter Email And Password!!!"."</center>";
+// }
+
+?>
+
+
 <html>
     <head>
         <title>Login Form</title>
@@ -37,40 +72,7 @@
         </style>
 		
     </head>
-    <body>
-
-		<?php
-
-			if(! isset($_SESSION)) {
-			session_start();
-			}	if(isset($_SESSION['email'])){
-			header('location:view.php');
-			}
-
-	 require 'dbconnect1.php';
-        
-     if(isset($_POST['submit'])){
-         $email=$_POST['email'];
-         $password=$_POST['password'];
-
-         $sel="SELECT * FROM table1 where email='$email' AND password='$password' ";
-        // echo $sel;
-         $result=mysqli_query($conn,$sel);
-         if(mysqli_num_rows($result)>0){
-             while($row=mysqli_fetch_assoc($result)){
-				$_SESSION["email"]=$email;
-                header("location:view.php");
-             }
-         }
-         else{
-             echo "<center>"."Email And Password Not Valid."."</center>";
-         }
-	}
-	// else{
-	// 	echo"<center>". "Enter Email And Password!!!"."</center>";
-	// }
-
-	?>
+    <body>	
 	<form  method="POST"  enctype="multipart/form-data"  action="">
 		<div class="container">
 			<div class="row">
@@ -80,7 +82,7 @@
 						<b>Email</b>
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-							<input id="EmailId" name="email" type="text" placeholder="Enter email id here.." maxlength="50" class="form-control" require/>
+							<input id="EmailId" name="email" type="text" placeholder="Enter email id here.." maxlength="50" class="form-control" required>
 						</div>
 						<small id="EmailIdValidation" class="text-danger"></small>
 					</div>
@@ -88,13 +90,13 @@
 						<b>Password</b>
 						<div class="input-group">
 							<span class="input-group-addon"><i class="fa fa-key"></i></span>
-							<input id="Password" name="password" type="password" placeholder="Enter password here.." maxlength="12" class="form-control" require/>
+							<input id="Password" name="password" type="password" placeholder="Enter password here.." maxlength="12" class="form-control" required>
 						</div>
 						<small id="PasswordValidation" class="text-danger"></small>
 					</div>
 					<div class="form-group">
 						<!-- <a class="btn btn-primary" ><i class="fa fa-user-plus" name="btn" style="color:white;"></i> Create New Account</a> -->
-						<input type="submit" name="submit" class="btn btn-primary" value="Login" style="border-radius: 5px;">
+						<input type="submit" id="Submit" name="submit" class="btn btn-primary" value="Login" style="border-radius: 5px;">
 						
 					</div>
                     <div>

@@ -1,0 +1,68 @@
+Auth APi
+# composer create-project laravel/laravel laravel-passport-new-auth --prefer-dist
+# database- pauth
+# Env File set db configuration
+# composer require laravel/passport
+
+# php artisan migrate
+# php artisan passport:install
+
+# app/Models/User.php
+# app/Providers/AuthServiceProvider.php
+# config/app.php
+
+'providers' => [
+        ...
+        ... 
+        ...
+        Laravel\Passport\PassportServiceProvider::class,
+    ],
+# config\auth.php
+
+ 'guards' => [
+        'web' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+        'api' => [
+                'driver' => 'passport',
+                'provider' => 'users',
+        ],
+    ],
+
+# Create Posts Model & Run Migration
+  php artisan make:model Post -m
+  	    $table->increments('id');
+            $table->unsignedBigInteger('user_id');
+            $table->text('title');
+            $table->longText('description');
+            $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
+
+# post model
+
+protected $fillable = [
+        'title', 'description'
+    ];  
+
+# php artisan migrate
+# php artisan make:controller PassportAuthController
+
+# app/Models/User.php
+public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }  
+
+# php artisan make:controller api/PostController
+
+# routes/api.php
+
+# php artisan serve
+
+# Collection
+"Accept": application/json
+http://localhost:8000/api/register
+http://localhost:8000/api/login
+http://localhost:8000/api/posts
+http://localhost:8000/api/posts/{id}

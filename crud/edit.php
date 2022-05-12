@@ -32,7 +32,8 @@ require 'update.php';
 
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"
         integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk=" crossorigin="anonymous"></script>
-        <script type="text/javascript" src="js/bootstrap/formvalidation.js"> </script>
+
+    <script type="text/javascript" src="js/bootstrap/SignUpForm.js"> </script>
         <style type="text/css">
             #SignUpForm {
                 box-shadow: 0px 0px 5px green;
@@ -95,8 +96,8 @@ $query = "SELECT * FROM `table1` WHERE id=$id";
                         <div class="input-group">
                             <span class="input-group-addon" style="color: green;"><i class="fa fa-female" ></i> | <i class="fa fa-male"></i></span>
                             <select id="Gender" name="gender" value="<?php echo $row['gender'];?>" class="form-control" required>
-								<option value='Female'>Female</option>
-								<option value='Male'>Male</option>
+								<option value='female'>Female</option>
+								<option value='male'>Male</option>
 							</select>
                         </div>
                         <small id="GenderValidation" class="text-danger"></small>
@@ -177,6 +178,8 @@ $query = "SELECT * FROM `table1` WHERE id=$id";
                     <center>
                         <div class="form-group">
                             <input id="BtnSignUp" class="btn btn-success" type="submit" value="Sign Up" name="submit" value="Update">
+                            <input type="button" value="Back" class="btn btn-primary" onclick="history.back()" />
+
                         </div>                        
                     </center>
                 </div>
