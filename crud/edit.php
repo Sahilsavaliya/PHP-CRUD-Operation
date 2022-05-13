@@ -66,7 +66,7 @@ $query = "SELECT * FROM `table1` WHERE id=$id";
     <div class="container">
             <div class="row">
                 <div class="col-lg-offset-4 col-lg-4 col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-12" id="SignUpForm">
-                    <h3 class="text-center"><i class="fa fa-user-plus"></i>&nbsp;<i>Create New Account</i></h3>
+                    <h3 class="text-center"><i class=""></i>&nbsp;<i>Update Records</i></h3>
 
                     <hr/>
 
@@ -160,7 +160,7 @@ $query = "SELECT * FROM `table1` WHERE id=$id";
                             <input type="file" name="fileToUpload" value="<?php echo $row['file'];?>" class="form-control" required />
                             <div id="File"></div>
                         </div>
-						<label style="color: red;font-size:10px">(*/ ONLY PDF,DOC,TEXT FILE )</label>
+						<label style="color: red;font-size:10px">(*/Only PDF,DOC and XLS files are allowed )</label>
                         <small id="FileValidation" class="text-danger"></small>
                     </div>
 
@@ -177,7 +177,7 @@ $query = "SELECT * FROM `table1` WHERE id=$id";
 
                     <center>
                         <div class="form-group">
-                            <input id="BtnSignUp" class="btn btn-success" type="submit" value="Sign Up" name="submit" value="Update">
+                            <input id="BtnSignUp" class="btn btn-success" type="submit" value="Update" name="submit" value="Update">
                             <input type="button" value="Back" class="btn btn-primary" onclick="history.back()" />
 
                         </div>                        
