@@ -1,0 +1,14 @@
+#SignUpForm {
+    box-shadow: 0px 0px 5px green;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background: white;
+    border-top-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+}
+i.fa, i {
+    color: seagreen;
+}
+body {
+    background-color: white;
+}

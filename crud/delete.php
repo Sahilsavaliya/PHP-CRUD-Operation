@@ -13,7 +13,7 @@ $did=$_GET['id'];
   {
       $sql = "DELETE FROM table1 WHERE id='$did'";
       if ($conn->query($sql) === TRUE) {
-        unlink("upload/".$row['file']);
+        unlink("uploads/".$row['file']);
         header('location: view.php');
       } else {
       echo "Error deleting record: " . $conn->error;

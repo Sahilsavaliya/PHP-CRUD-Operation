@@ -2,7 +2,6 @@
 session_start();
 require 'dbconnect1.php';
 
-
 if (!isset($_POST['submit'])) {
     header("location:signupform.php");
     exit();
@@ -18,30 +17,25 @@ $age = $_POST['age'];
 $pass = $_POST['password'];
 $cpass = $_POST['cpassword'];
 $fi = $_FILES['fileToUpload']['name'];
+// $rname=rand().$fi;
 // @$check = $_POST['Country'];
 // @$check = implode(",", $_POST['Country']);
 
 if($fn != "" && $ln != ""&& $gen != ""&& $con != ""&& $em != "" && $des != "" && $age != "" && $pass != "" && $fi != "")
 {
-    if($pass != $cpass)
-{
+    if($pass != $cpass){
     header("location:signupform.php?pass=Not match password");
     exit();
 }
  
-
 $qem = mysqli_query($conn, "SELECT * from table1 WHERE email='$em'");
-
-
 if (mysqli_num_rows($qem) > 0) {
     // $_SESSION['status'] = "Email id already used!!";
     // echo "<br>";
     header("location:signupform.php?pass=Email id already used!!");
     // echo "Email id already used!!";
-    // header("location:form.php");
-
 }else {
-    $target_dir = "upload/";
+    $target_dir = "uploads/";
     $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
     $uploadOk = 1;
     $filetype = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));

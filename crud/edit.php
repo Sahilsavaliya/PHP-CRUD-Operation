@@ -1,12 +1,10 @@
 <?php 
 session_start();
-if(! isset($_SESSION)) {
-    session_start();
-}if(!($_SESSION['email'])) {
+if(!($_SESSION['email'])) {
     header('location: index.php');
 }
 require 'dbconnect1.php';
-require 'file.php';
+// require 'file.php';
 require 'update.php';
 ?>
 
@@ -17,7 +15,7 @@ require 'update.php';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Update Records</title>
     <link href="css/bootstrap/bootstrap.css" type="text/css" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css"
@@ -34,35 +32,21 @@ require 'update.php';
         integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk=" crossorigin="anonymous"></script>
 
     <script type="text/javascript" src="js/bootstrap/SignUpForm.js"> </script>
-        <style type="text/css">
-            #SignUpForm {
-                box-shadow: 0px 0px 5px green;
-                margin-top: 20px;
-                margin-bottom: 20px;
-                background: white;
-                border-top-right-radius: 25px;
-                border-bottom-left-radius: 25px;
-            }
-            i.fa, i {
-                color: green;
-            }
-            body {
-                background-color: #666666;
-            }
-        </style>
+    <link href="css/index.css" type="text/css" rel="stylesheet" />
+
 </head>
 
 <body>
     <?php
  $id = isset($_GET['id']) ? $_GET['id'] : '';
-// echo"$id"; 
+ 
 $query = "SELECT * FROM `table1` WHERE id=$id";
 
  $result=mysqli_query($conn,$query);
  $row=mysqli_fetch_assoc($result);
 
   ?>
-    <form method="POST" action="" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data">
     <div class="container">
             <div class="row">
                 <div class="col-lg-offset-4 col-lg-4 col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-12" id="SignUpForm">
@@ -92,15 +76,16 @@ $query = "SELECT * FROM `table1` WHERE id=$id";
 
                     <!-- Gender -->
                     <div class="form-group">
-                    <b>Gender</b>
-                        <div class="input-group">
-                            <span class="input-group-addon" style="color: green;"><i class="fa fa-female" ></i> | <i class="fa fa-male"></i></span>
-                            <select id="Gender" name="gender" value="<?php echo $row['gender'];?>" class="form-control" required>
-								<option value='female'>Female</option>
-								<option value='male'>Male</option>
-							</select>
+                        <b>Gender</b>
+                        <div class="input-group form-control ">
+                            <span class="input-group-addon"><i class="fa fa-female"></i> | <i class="fa fa-male"></i></span>
+
+                            <input type="radio" name="gender" value="female" <?php echo $row['gender'] == "female" ? "checked=checked" : ""; ?>>Female
+
+                            <input type="radio" name="gender" value="male" <?php echo $row['gender'] == "male" ? "checked=checked" : ""; ?>>Male
+
+                            <!-- <small id="lnValidation" class="text-danger"></small> -->
                         </div>
-                        <small id="GenderValidation" class="text-danger"></small>
                     </div>
 
                     <!-- Contact No -->
@@ -122,23 +107,23 @@ $query = "SELECT * FROM `table1` WHERE id=$id";
                         </div>
                         <small id="EmailValidation" class="text-danger"></small>
                     </div>
-                    <div class="input-group">
-                        <b>Designation</b>
-                            <select name="designation" class="form-control" id="designation" required>
-                                <option class="form-control"></option>
-                                <option value="Jr Devloper"
-                                    <?php echo $row['designation']=="Jr.Software Devloper"?"selected=selected":""; ?>
-                                    class="form-control">Jr Devloper</option>
-                                <option value="Sr.Software Devloper"
-                                    <?php echo $row['designation']=="Sr.Software Devloper"?"selected=selected":""; ?>
-                                    class="form-control">Sr Devloper</option>
-                                <option value="Project Manager"
-								    <?php echo $row['designation']=="Project Manager"?"selected=selected":""; ?> class="form-control">Project Manager </option>
-                                <option value="Business Analyst "
-                                    <?php echo $row['designation']=="Business Analyst "?"selected=selected":""; ?>
-                                    class="form-control"> Business Analyst</option>
+
+                    <div class="form-group">
+                        <b><i></i> Designation</b>
+                        <!-- <div class="input-group"> -->
+                            <select name="designation" class="form-control" id="designation" autoplay>
+                            <!-- <option value="">please select any option</option> -->
+
+                                <option value="Jr.Software Devloper" <?php echo $row['designation'] == "Jr.Software Devloper" ? "selected=selected" : ""; ?> class="form-control">Jr.Software Devloper</option>
+
+                                <option value="Sr.Software Devloper" <?php echo $row['designation'] == "Sr.Software Devloper" ? "selected=selected" : ""; ?> class="form-control">Sr.Software Devloper</option>
+
+                                <option value="Project Manager" <?php echo $row['designation'] == "Project Manager" ? "selected=selected" : ""; ?> class="form-control">Project Manager </option>
+
+                                <option value="Business Analyst" <?php echo $row['designation'] == "Business Analyst" ? "selected=selected" : ""; ?> class="form-control"> Business Analyst</option>
                             </select>
-                        </div>
+                        <!-- </div> -->
+                    </div>
                         <small id="DesignationValidation" class="text-danger"></small>
                     
 
@@ -157,11 +142,12 @@ $query = "SELECT * FROM `table1` WHERE id=$id";
                         <b>File</b><BR>
                         <div class="input-group">
                             <span class="input-group-addon"></span>
-                            <input type="file" name="fileToUpload" value="<?php echo $row['file'];?>" class="form-control" required />
+                            <input type="file" name="fileToUpload" value="<?php echo $row['file'];?>" class="form-control"  />
                             <div id="File"></div>
-                        </div>
+                        </div>                   
+                        <span><b>Last uploaded:</b> <?=$row['file'];?></span>     
+                        <!-- <input type="hidden" name="fileToUpdate" value="<//?hp echo $row['file'];?>" /><br> -->
 						<label style="color: red;font-size:10px">(*/Only PDF,DOC and XLS files are allowed )</label>
-                        <small id="FileValidation" class="text-danger"></small>
                     </div>
 
                      <!-- Password -->
@@ -169,10 +155,20 @@ $query = "SELECT * FROM `table1` WHERE id=$id";
                     <b>Password</b>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                            <input type="password" id="Password" name="password" placeholder="Enter your password here..." class="form-control" required value="<?php echo $row['password'] ?>";?>
+                            <input type="password" id="Password" name="password" placeholder="Enter your password here..." class="form-control">
                         </div>
                         <small id="PasswordValidation" class="text-danger"></small>
                     </div>
+
+                    <!-- confirm password -->
+                    <div class="form-group">
+						<b>Confirm Password</b>
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-key"></i></span>
+							<input id="cPassword" name="cpassword" type="password" placeholder="Enter confirm password here.." maxlength="12" class="form-control" />
+						</div>
+						<small id="cPasswordValidation" class="text-danger"></small>
+					</div>
 
 
                     <center>

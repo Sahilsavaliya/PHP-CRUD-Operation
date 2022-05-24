@@ -8,6 +8,7 @@ var $FNameLNameRegEx = /^([a-zA-Z]{2,20})$/;
 				var TxtEmailIdFlag=false, TxtpasswordFlag=false;
 
 				$("#EmailId").blur(function(){
+					
 					$("#EmailIdValidation").empty();
 					if($(this).val()=="" || $(this).val()==null)
 					{

@@ -19,34 +19,17 @@ header('location:view.php');
 		
 		<!--CDN LINK OF JQUERY PARENT PLUG IN - COMPULSORY TO BE HERE. -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript"></script>
-		
-		<script src="Js/bootstrap/SignUpForm.js" type="text/javascript"></script>
+				<script src="Js/bootstrap/SignUpForm.js" ></script>
 
         <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
         <link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
-
-        <style type="text/css">
-            #SignUpForm {
-                box-shadow: 0px 0px 5px green;
-                margin-top: 20px;
-                margin-bottom: 20px;
-                background: white;
-                border-top-right-radius: 25px;
-                border-bottom-left-radius: 25px;
-            }
-            i.fa, i {
-                color: green;
-            }
-            body {
-                background-color: #666666;
-            }
-        </style>
+		<link href="css/index.css" type="text/css" rel="stylesheet" />
     </head>
     <body>
     <?php
-        require 'dbconnect1.php';
     ?>
-    <form  name ="register" method="POST" enctype="multipart/form-data"  action="fprocess.php">
+
+<form  name ="register" method="POST" enctype="multipart/form-data"  action="fprocess.php">
         <div class="container">
             <div class="row">
                 <div class="col-lg-offset-4 col-lg-4 col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-12" id="SignUpForm">
@@ -55,28 +38,16 @@ header('location:view.php');
                     <hr/>
                     <span style="color:red;text-align: center;">
 
-                        <?php
-
+                    <?php
                         if (isset($_REQUEST['pass'])) {
-
-                            # code...
-
                             $pass = $_REQUEST['pass'];
-
                         ?>
-
                             <p> <?php echo $pass; ?></p>
-
                         <?php
-
                         } else {
-
                             $pass = "";
-
                         }
-
-                        ?>
-
+                    ?>
                     </span>
                     <hr>
 
@@ -134,18 +105,19 @@ header('location:view.php');
                     </div>
 
                     <div class="form-group">
-                        <b><i></i> Designation</b>
+                        <b> Designation</b>
                         <div class="input-group">
-                            <select id="Designation" name="designation" class="form-control" required>
-                                <option value="">Choose Designation</option>
+                            <select name="designation" class="form-control" id="designation" autofocus>
+                                  
+                                <option value="">please select any option</option>
                                 <option value="Jr.Software Devloper">Jr.Software Devloper</option>
                                 <option value="Sr.Software Devloper">Sr.Software Devloper</option>
-                                <option value="Project Manager">Project Manager</option>
-                                <option value="Business Analyst"> Business Analyst</option>
+                                <option value="Project Manager">Project Manager </option>
+                                <option value="Business Analyst">Business Analyst</option>
                             </select>
                         </div>
                         <small id="DesignationValidation" class="text-danger"></small>
-                    </div>
+                    </div>               
 
                     <!-- Age -->
                     <div class="form-group">

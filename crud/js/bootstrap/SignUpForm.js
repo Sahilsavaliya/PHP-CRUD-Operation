@@ -20,21 +20,30 @@ var $PostDescRegex = /^(.{100,3000})$/;
 var $LatitudeLongitude = /^(-?(?:1[0-7]|[1-9])?\d(?:\.\d{1,8})?|180(?:\.0{1,8})?)$/;
 var $cpassword = $PasswordRegEx;
 
-var $FirstNameValidationFlag = false, $LastNameValidationFlag = false, $ContactNoValidationFlag = false, $EmailValidationFlag = false, $PasswordValidationFlag = false, $cPasswordValidationFlag = false, $AgeValidationFlag = false;
+var $FirstNameValidationFlag = false, $LastNameValidationFlag = false, $ContactNoValidationFlag = false, $EmailValidationFlag = false, $PasswordValidationFlag = false, $cPasswordValidationFlag = false, $AgeValidationFlag = false, $DesignationValidationFlag = false;
 
 // Initializing JQuery
 $(document).ready(function () {
-
-    // Designation Validation
-    $('#Designation').blur(function () {
-        $('#FirstNameValidation').empty();
-        if ($(this).val() == '') {
-            $('#DesignationValidation').html('Field is mandatory...!');
+    
+    $("#designation").blur(function () {
+        $("#DesignationValidation").empty();
+        DesignationValidationFlag = false;
+        if ($(this).val() == "" || $(this).val() == null) {
+            $("#DesignationValidation").html("(*) Designation required..!!");
+            DesignationValidationFlag = false;
+        } else {
+            DesignationValidationFlag = true;
         }
-        else {
-            if (!$(this).val().match($FNameLNameRegEx)) {
-                $('#DesignationValidation').html('Invalid First Name...!');
-            }
+    })
+    $("#designation").blur(function () {
+        $("#DesignationValidation").empty();
+        if ($(this).find("option:selected").text() == "") {
+            $("#DesignationValidation").html("(*) Designation required..!!");
+            DesignationValidationFlag = false;
+
+        } else {
+
+            DesignationValidationFlag = true;
         }
     });
 
@@ -278,22 +287,20 @@ $(document).ready(function () {
         }
 
         //confirm password validation
-        $("#cPassword").blur(function () {
-            $("#cPasswordValidation").empty();
-            if ($(this).val() == "" || $(this).val() == null) {
-                $("#cPasswordValidation").html("(*)Confirm Password required..!!");
-                TxtcPasswordFlag = false;
+        TxtcPasswordFlag = false;
+        $("#cPasswordValidation").empty();
+        if ($('#cPassword').val() == '') {
+            $("#cPasswordValidation").html("(*)Confirm Password required..!!");
+        }
+        else {
+            if (!$('Password').val() != $("#cPassword").val()) {
+                $("#cPasswordValidation").html("  Password not match..!!");
             }
             else {
-                if (!$(this).val() != $("#Password").val()) {
-                    $("#cPasswordValidation").html("(*)  Password not match..!!");
-                    TxtcPasswordFlag = false;
-                }
-                else {
-                    TxtcPasswordFlag = true;
-                }
+                TxtcPasswordFlag = true;
             }
-        });
+        }
+
 
         // Age Validation
         $AgeValidationFlag = false;
@@ -309,28 +316,32 @@ $(document).ready(function () {
                 $AgeValidationFlag = true;
             }
         }
+
+        // Designation Validation
+        DesignationValidationFlag = false;
+        $("#DesignationValidation").empty();
+        if ($("#designation").val() == "") {
+            $("#DesignationValidation").html("(*) Designation Required..!!");
+            DesignationValidationFlag = false;
+
+        } else {
+            
+            DesignationValidationFlag = true;
+            
+        }
         //file validation
         $FileValidationFlag = false;
         $('#FileValidation').empty();
         if ($('#File').val() == '') {
             $('#FileValidation').html('Field is mandatory...!');
+        } else {
+            FileValidationFlag = true;
         }
 
-        if ($FirstNameValidationFlag == true && $LastNameValidationFlag == true && $ContactNoValidationFlag == true && $EmailValidationFlag == true && $PasswordValidationFlag == true && $FileValidationFlag == true && TxtcPasswordFlag == true) {
+        if ($FirstNameValidationFlag == true && $LastNameValidationFlag == true && $ContactNoValidationFlag == true && $EmailValidationFlag == true && $PasswordValidationFlag == true && $FileValidationFlag == true && TxtcPasswordFlag == true && DesignationValidationFlag == true) {
             alert('Form Submitted Successfully...!');
         }
     });
 
-        // First Name Validation
-        $('#Designation').blur(function () {
-            $('#FirstNameValidation').empty();
-            if ($(this).val() == '') {
-                $('#DesignationValidation').html('Field is mandatory...!');
-            }
-            else {
-                if (!$(this).val().match($FNameLNameRegEx)) {
-                    $('#DesignationValidation').html('Invalid First Name...!');
-                }
-            }
-        });
+
 });

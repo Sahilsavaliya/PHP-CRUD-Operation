@@ -1,8 +1,5 @@
 <?php
-
-if(! isset($_SESSION)) {
-	session_start();
-}	
+session_start();	
 if(isset($_SESSION['email'])){
 header('location:view.php');
 }
@@ -49,31 +46,13 @@ else{
 
         <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk="   crossorigin="anonymous"></script>
 
-		<script type="text/javascript" src="js/bootstrap/loginvalidation.js">
+		<script type="text/javascript" src="js/bootstrap/loginvalidation.js"> </script>
+		<link href="css/index.css" type="text/css" rel="stylesheet" />
 
-		</script>
-		
-		
-		<style type="text/css">
-            #SignUpForm {
-                box-shadow: 0px 0px 5px green;
-                margin-top: 20px;
-                margin-bottom: 20px;
-                background: white;
-                border-top-right-radius: 25px;
-                border-bottom-left-radius: 25px;
-            }
-            i.fa, i {
-                color: green;
-            }
-            body {
-                background-color: white;
-            }
-        </style>
 		
     </head>
     <body>	
-	<form  method="POST"  enctype="multipart/form-data"  action="">
+	<form  method="POST">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-offset-4 col-lg-4 col-md-offset-4 col-md-4 col-sm-offset-3 col-sm-6 col-xs-12" id="CNAForms">

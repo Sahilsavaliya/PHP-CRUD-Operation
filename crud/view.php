@@ -8,15 +8,7 @@ if(!isset($_SESSION['email'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>
 
-</script>
-
-</script>
-
-<script defer=""
-        src="/cdn-cgi/zaraz/s.js?z=JTdCJTIyZXhlY3V0ZWQlMjIlM0ElNUIlNUQlMkMlMjJ0cmFja3MlMjIlM0ElNUIlNUQlMkMlMjJ0JTIyJTNBJTIyVGFibGUlMjAwNiUyMiUyQyUyMnclMjIlM0ExNTM2JTJDJTIyaCUyMiUzQTg2NCUyQyUyMmolMjIlM0E3NTQlMkMlMjJlJTIyJTNBMTUzNiUyQyUyMmwlMjIlM0ElMjJodHRwcyUzQSUyRiUyRnByZXZpZXcuY29sb3JsaWIuY29tJTJGdGhlbWUlMkZib290c3RyYXAlMkZ0YWJsZS0wNiUyRiUyMiUyQyUyMnIlMjIlM0ElMjIlMjIlMkMlMjJrJTIyJTNBMjQlMkMlMjJuJTIyJTNBJTIyVVRGLTglMjIlMkMlMjJvJTIyJTNBLTMzMCU3RA==">
-    </script>
     <script nonce="0dbb1351-023f-4476-8b7a-600fccbf984e"></script>
     <script type="text/javascript" src="js/bootstrap/viewjs.js"></script>
     <title> Display Records</title>
@@ -36,13 +28,12 @@ if(!isset($_SESSION['email'])) {
 <body>
 <?php
     include 'dbconnect1.php';
-    // session_start();
     $query="SELECT * FROM table1";
     $result=mysqli_query($conn,$query);
 
     ?>
 
-<h1 style="text-align: center;"> Display Records </h1></td><hr>
+<h1 style="text-align: center;"><b> Display Records</b> </h1></td><hr>
 
 <br>
 <section class="ftco-section">
@@ -74,7 +65,6 @@ if(!isset($_SESSION['email'])) {
                                     <td class="tabcon"><b>Delete</b></td>
                                     
                                     <?php
-                                    // session_start();
                                     if (mysqli_num_rows($result) > 0) {
                                         //echo "true..";
                                         while ($row = mysqli_fetch_assoc($result)) {
@@ -98,7 +88,7 @@ if(!isset($_SESSION['email'])) {
                                     <td class="tabcon"><?php echo $row['designation'] ?></td>
                                     <td class="tabcon"><?php echo $row['age'] ?></td>
                                     <td class="tabcon"><?php echo $row['password'] ?></td>
-                                    <td><a href="upload/<?php echo $row['file'];?>"><?= $row['file']?></a></td>
+                                    <td><a href="uploads/<?php echo $row['file'];?>"><?= $row['file']?></a></td>
                                     <td class="tabcon"><a href="edit.php?id=<?php echo $row['id']; ?>" title="Edit"><button style="background-color: skyblue;">Edit</button></a></td>
                                     <!-- <td class="tabcon"><a href="delete.php?id=</ ?php echo $row['id']; ?>" title="Delete"><button style="background-color: red;">Delete</button></a></td> -->
                                     <td class="tabcon"><a href="delete.php?id=<?php echo $row['id']; ?>"onclick="return confirm('Are you sure want to delete?')"title="delete"><button style="background-color: red;">Delete</button></a></td>
