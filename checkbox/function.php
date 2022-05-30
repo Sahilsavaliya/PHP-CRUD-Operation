@@ -2,17 +2,15 @@
 
  class insertdata
 {
+
     public function insert($data,$tableb,$tablea,$col)
     {
         require('dbconnect.php');
 
-        $data = $_POST['check'];
-       
-
-            foreach($data as $value)
+                    foreach($data as $value)
 
         {
-            $query = "INSERT INTO $tableb  VALUES ('','$value')";
+            $query = "INSERT INTO $tableb  VALUES (NULL,'$value')";
             $query_run = mysqli_query($conn,$query);
             $del_sql = "delete from $tablea where $col = '$value'";
             //echo $del_sql; exit;
@@ -36,7 +34,7 @@
 
         public function getdata($tablea,$tableb)
         {
-            include('sql.php');
+            include('dbconnect.php');
             $query="SELECT * FROM $tablea ORDER BY checkbox_data ASC";
             $data=mysqli_query($conn,$query);
             $total['total1']=mysqli_num_rows($data);

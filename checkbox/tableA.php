@@ -1,12 +1,13 @@
 <?php
+session_start();
 include('dbconnect.php');
 include ('function.php');
 //$query = mysqli_query($conn,"select * from tablea ORDER BY checkbox_data ASC");
     $calltoaction=new insertdata();
 
     if (isset($_POST['swap1'])){
-       
-        $calltoaction->insert($value,'tableb','tablea','checkbox_data');
+        $data = $_POST['check'];
+        $calltoaction->insert($data,'tableb','tablea','checkbox_data');
         echo"Done";
         // exit;
     }
@@ -14,14 +15,14 @@ include ('function.php');
     if (isset($_POST['swap2']))
     {
         $data = $_POST['check'];
-        $calltoaction->insert($value,'tablea','tableb','checkbox_data');
+        $calltoaction->insert($data,'tablea','tableb','checkbox_data');
     }
     $totaldata=$calltoaction->getdata('tablea','tableb');
     $query=$totaldata['data'];
     $query1=$totaldata['data1'];
 ?>
 <?php
-session_start();
+
 ?>
 <html>
 <head>
