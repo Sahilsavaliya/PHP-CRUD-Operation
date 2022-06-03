@@ -45,32 +45,64 @@ if($fn != "" && $ln != ""&& $gen != ""&& $con != "" && $em != "" && $des != "" &
 		// if everything is ok, try to upload file
 		else {
 			if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-				$sqlf = "select * FROM table1 WHERE id='$gid'";
-				$dataf = mysqli_query($conn, $sqlf);
-				$totalf = mysqli_num_rows($dataf);
-				$rowf = mysqli_fetch_assoc($dataf);
-				unlink("uploads/".$rowf['file']);
-				$query = "UPDATE `table1` SET `fname`='$fn',`lname`='$ln',`gender`='$gen',`contact`='$con',`email`='$em',`designation`='$des',`age`='$age',`password`='$pass',`file`='$rname' WHERE id=$gid"; 
-				$result1 = $conn->query($query); 
-				if ($result1 == TRUE) {
-					
-					header("Location:view.php");
+				if(!empty($pass)){
+					$sqlf = "select * FROM table1 WHERE id='$gid'";
+					$dataf = mysqli_query($conn, $sqlf);
+					$totalf = mysqli_num_rows($dataf);
+					$rowf = mysqli_fetch_assoc($dataf);
+					unlink("uploads/".$rowf['file']);
+					$query = "UPDATE `table1` SET `fname`='$fn',`lname`='$ln',`gender`='$gen',`contact`='$con',`email`='$em',`designation`='$des',`password`='$pass',`age`='$age',`file`='$rname' WHERE id=$gid"; 
+					$result1 = $conn->query($query); 
+					if ($result1 == TRUE) {
+						
+						header("Location:view.php");
+					}else{
+						echo "Error:" . $query . "<br>" . $conn->error;
+					}
 				}else{
-					echo "Error:" . $query . "<br>" . $conn->error;
+					$sqlf = "select * FROM table1 WHERE id='$gid'";
+					$totalf = mysqli_num_rows($dataf);
+					$dataf = mysqli_query($conn, $sqlf);
+					$rowf = mysqli_fetch_assoc($dataf);
+					unlink("uploads/".$rowf['file']);
+					$query = "UPDATE `table1` SET `fname`='$fn',`lname`='$ln',`gender`='$gen',`contact`='$con',`email`='$em',`designation`='$des',`age`='$age',`file`='$rname' WHERE id=$gid"; 
+
+					$result1 = $conn->query($query); 
+					if ($result1 == TRUE) {
+						
+						header("Location:view.php");
+					}else{
+						echo "Error:" . $query . "<br>" . $conn->error;
+					}
 				}
+				
 			} else {
 				echo "<center>". "Sorry, there was an error uploading your file." . "<center>";
 			}
 		}
 	}
 	else{
-		$query = "UPDATE `table1` SET `fname`='$fn',`lname`='$ln',`gender`='$gen',`contact`='$con',`email`='$em',`designation`='$des',`age`='$age' WHERE `id` = '$gid'"; 
-		$result1 = mysqli_query($conn, $query);
-		if ($result1 == TRUE) {
-			header("Location:view.php");
-		}else{
-			echo "Error:" . $query . "<br>" . $conn->error;
+		if(!empty($pass)){
+			$query = "UPDATE `table1` SET `fname`='$fn',`lname`='$ln',`gender`='$gen',`contact`='$con',`email`='$em',`designation`='$des',`password`='$pass',`age`='$age' WHERE `id` = '$gid'"; 
+
+			$result1 = mysqli_query($conn, $query);
+			if ($result1 == TRUE) {
+				header("Location:view.php");
+			}else{
+				echo "Error:" . $query . "<br>" . $conn->error;
+			}
 		}
+		else{
+			$query = "UPDATE `table1` SET `fname`='$fn',`lname`='$ln',`gender`='$gen',`contact`='$con',`email`='$em',`designation`='$des',`age`='$age' WHERE `id` = '$gid'"; 
+
+			$result1 = mysqli_query($conn, $query);
+			if ($result1 == TRUE) {
+				header("Location:view.php");
+			}else{
+				echo "Error:" . $query . "<br>" . $conn->error;
+			}
+		}
+		
 	} 
 }else{
 	echo "<center>.Enter Required Fields.</center>";

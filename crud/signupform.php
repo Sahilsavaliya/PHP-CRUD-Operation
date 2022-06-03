@@ -106,16 +106,15 @@ header('location:view.php');
 
                     <div class="form-group">
                         <b> Designation</b>
-                        <div class="input-group">
                             <select name="designation" class="form-control" id="designation" autofocus>
                                   
-                                <option value="">please select any option</option>
+                                <option value="">select</option>
                                 <option value="Jr.Software Devloper">Jr.Software Devloper</option>
                                 <option value="Sr.Software Devloper">Sr.Software Devloper</option>
                                 <option value="Project Manager">Project Manager </option>
                                 <option value="Business Analyst">Business Analyst</option>
                             </select>
-                        </div>
+                        
                         <small id="DesignationValidation" class="text-danger"></small>
                     </div>               
 

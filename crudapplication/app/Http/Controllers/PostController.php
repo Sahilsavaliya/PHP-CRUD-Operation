@@ -45,29 +45,48 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'fname' => 'required|min:3|max:10',
-            'lname' => 'required|min:3|max:10',
-            'email' => 'required|email|unique:posts',
-            'description' => 'required|max:50',
-            'designation' => 'required',
-        ],[
-                 'fname.required' => 'firstname is required',
-                'fname.min' => 'Minimum 4 charachers require!!',
-                'fname.max' => 'MAximum 10 charachers require!!',
 
-                'lname.required' => 'lastname is required',
-                'lname.min' => 'Minimum 4 charachers require!!',
-                'lname.max' => 'MAximum 10 charachers require!!',
-                'email.required' => 'Email is required',
-                'email.unique' => 'Email is already exists!!'
-            ]);
+        $request->validate([
+            'fname' => 'require',
+            'lname' => 'require',
+            'email' => 'require',
+            'designation' => 'require',
+            'description' => 'require',
+        ],[
+            'fname.required' => 'firstname is required',
+            'lname.required' => 'lastname is required',
+            'email.required' => 'firstname is required',
+            'designation.required' => 'lastname is required',
+            'description.required' => 'lastname is required'
+        ]);
+   
+        // $request->validate([
+        //     'fname' => 'required|min:3|max:10',
+        //     'lname' => 'required|min:3|max:10',
+        //     'email' => 'required|email|unique:posts',
+        //     'description' => 'required|max:50',
+        //     'designation' => 'required',
+        // ],[
+        //          'fname.required' => 'firstname is required',
+        //         'fname.min' => 'Minimum 4 charachers require!!',
+        //         'fname.max' => 'MAximum 10 charachers require!!',
+
+        //         'lname.required' => 'lastname is required',
+        //         'lname.min' => 'Minimum 4 charachers require!!',
+        //         'lname.max' => 'MAximum 10 charachers require!!',
+        //         'email.required' => 'Email is required',
+        //         'email.unique' => 'Email is already exists!!'
+        //     ]);
     
         Post::create($request->all());
      
         return redirect()->route('posts.index')
                         ->with('success','Post created successfully.');
+
     }
+    //Controller will be like this.
+
+
 
     /**
      * Display the specified resource.
@@ -101,13 +120,13 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        echo $post->id; exit;
+        echo $post->id;
         $request->validate([
             'fname' => 'required|min:3',
             'lname' => 'required|min:3',
             'email' => 'required|unique:posts,email,'.$post->id.',id',  
             'description' => 'required|max:50',
-            // 'designation' => 'required',
+            'designation' => 'required',
         ],[
                 'fname.required' => 'Title is required',
                 'email.required' => 'Email is required',
@@ -137,4 +156,13 @@ class PostController extends Controller
         return redirect()->route('posts.index')
                         ->with('success','Post deleted successfully');
     }
+
+    public function logout(Request $request)
+    {
+       
+        auth()->logout();
+        return redirect()->route('login');
+    }
+
+    
 }

@@ -1,3 +1,4 @@
+
 @extends('posts.layout')
  
 @section('content')
@@ -49,9 +50,13 @@
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </td>
-        </tr>
+        </tr>  
         @endforeach
     </table>  
+    <form action="{{ route('logout') }}" method="post">
+       @csrf
+       <button class="btn btn-danger" action="{{ route('logout') }}" type="submit">Logout</button>
+</form>     
     <!-- <p>Date: {{ convertYmdToMdy('2022-02-12') }}</p>
     <p>Date: {{ convertMdyToYmd('02-12-2022') }}</p> -->
     {!! $data->links() !!}      

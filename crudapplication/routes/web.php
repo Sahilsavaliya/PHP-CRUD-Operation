@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,8 @@ Route::get('/', function () {
 });
 
 Route::resource('posts', PostController::class);
+Route::post('/logout',[PostController::class,'logout'])->name('logout');
+
 
 /*Route::get('blogs', '\App\Http\Controllers\PostController@index')->name('index');
 Route::get('blogs/create', '\App\Http\Controllers\PostController@create')->name('create');
