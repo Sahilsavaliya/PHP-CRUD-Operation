@@ -1,5 +1,7 @@
 <?php
-include "dbconnect.php";
+session_start();
+require 'dbconnect.php';
+
 
 $did=$_GET['id'];
   $query = "SELECT * FROM product where id = '$did'";
@@ -14,7 +16,7 @@ $did=$_GET['id'];
       $sql = "DELETE FROM product WHERE id='$did'";
       if ($conn->query($sql) === TRUE) {
         unlink("image/".$row['Image']);
-        header('location: dashboard.php');
+        header('location: index.php');
       } else {
       echo "Error deleting record: " . $conn->error;
       }

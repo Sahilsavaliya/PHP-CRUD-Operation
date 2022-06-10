@@ -1,14 +1,14 @@
 <?php 
 session_start();
-if(!($_SESSION['email'])) {
-    header('location: index.php');
-}
+
+@$email =$_SESSION['email1'];
+@$usertype = $_SESSION['utype'];
+
 ?>
 
 <html> 
     <head>
         <title>Dashboard</title>
-        <img src="http://jskrishna.com/work/merkury/images/circle-logo.png" alt="merkery_logo" class="visible-xs visible-sm circle-logo">
                         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
                         <script src="js/dashboard.js"> </script>
                         <link href="css/dashboard.css" rel="stylesheet" id="bootstrap-css">
@@ -17,24 +17,7 @@ if(!($_SESSION['email'])) {
                         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript"></script>
                         <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
                         <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk="   crossorigin="anonymous"></script>
-                        <script>
-                                $(document).ready(function (){
-                            $("#department").on('change',function(){
-                                var value = $(this).val();
-                                $.ajax({
-                                    url:"filter.php",
-                                    type:"POST",
-                                    data:'request=' + value,
-                                    beforeSend:function(){
-                                        $("#table").html("<span>Working...</span>");
-                                    },
-                                    success:function(data){
-                                        $("#table").html(data);
-                                    }
-                                });
-                            });
-                        });
-                        </script>
+
 
 
     </head>
@@ -53,10 +36,9 @@ if(!($_SESSION['email'])) {
                 </div>
                 <div class="navi">
                     <ul>
-                        <li class="active"><a href="dashboard.php"><i class="fa fa-home" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Home</span></a></li>
-                        <?php if($_SESSION["email"]=='testuser@kcsitglobal.com'){  ?>
-                        <li><a href="admin_register.php"><i class="" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Add Admin</span></a></li>
-                        <?php } ?>
+                        <li class="active"><a href="index.php"><i class="fa fa-home" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Home</span></a></li>
+                        <li><a href="admin_register.php">Add Admin</a></li>
+                        
 
                     </ul>
                 </div>
@@ -85,10 +67,6 @@ if(!($_SESSION['email'])) {
     $result=mysqli_query($conn,$query);
 
     ?>
-    <hr>
-    <h3 style="text-align: center;"><a><?=$_SESSION['email'] ?></a></h3>
-    <hr>
-
     <h1 style="text-align: center;"><b> Display Records </b></h1>
     
     </td>
@@ -123,12 +101,11 @@ if(!($_SESSION['email'])) {
                                     <td class="tabcon"><b>Hobbies</b></td>
                                     <td class="tabcon"><b>EmailId</b></td>
                                     <td class="tabcon"><b>Password</b></td>
-                                    <?php
-                                    if($_SESSION["email"]=='testuser@kcsitglobal.com'){  ?>
+                                    <?php if($usertype == 1 || $usertype == 2){
+                                    ?>
                                     <td class="tabcon"><b>Update</b></td>
                                     <td class="tabcon"><b>Delete</b></td>
-                                    <?php }  ?>
-
+                                    <?php } ?>
 
 
                                     <?php
@@ -153,8 +130,8 @@ if(!($_SESSION['email'])) {
                                     <td class="tabcon"><?php echo $row['hobbies'] ?></td>
                                     <td class="tabcon"><?php echo $row['email'] ?></td>
                                     <td class="tabcon"><?php echo $row['password'] ?></td>
-                                    <?php
-                                    if($_SESSION["email"]=='testuser@kcsitglobal.com'){  ?>
+                                    <?php if($usertype == 1 || $usertype == 2){
+                                    ?>
                                     <td class="tabcon"><a href="admin_register_edit.php?id=<?php echo $row['id']; ?>"
                                             title="Edit"><button class="btn btn-success">Edit</button></a>
                                     </td>
@@ -163,7 +140,6 @@ if(!($_SESSION['email'])) {
                                             onclick="return confirm('Are you sure want to delete?')"
                                             title="delete"><button class="btn btn-danger">Delete</button></a>
                                     </td>
-                                    <?php }  ?>
 
 
                                 </tr>
@@ -171,6 +147,7 @@ if(!($_SESSION['email'])) {
                             </tr>
 
                             <?php
+                                    }
                                         }
                                     } else {
                                         echo "0 row found...";

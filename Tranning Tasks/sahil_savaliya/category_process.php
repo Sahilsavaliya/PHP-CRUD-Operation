@@ -1,7 +1,6 @@
 <?php
 session_start();
 require 'dbconnect.php';
-
 if(!isset($_POST['submit']))
 {
 	header("location:category.php");
@@ -30,6 +29,10 @@ $nm = $_POST['name'];
 	         header("location:category.php");
             // echo "not insert";
         }
+}else{
+header("Location:category.php?Please input all Required fields..!!");
+
+
 }
 
 

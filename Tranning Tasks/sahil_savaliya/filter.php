@@ -1,5 +1,6 @@
 <?php 
 session_start();
+@$usertype=$_SESSION['utype'];
 if(isset($_POST['request'])){
     $category = $_POST['request'];
     include 'dbconnect.php';
@@ -28,8 +29,8 @@ if(isset($_POST['request'])){
                                     <td class="tabcon"><b>Image</b></td>
                                     <td class="tabcon"><b>Created By User Id</b></td>
                                     <td class="tabcon"><b>Active</b></td>
-                                    <?php
-                                    if($_SESSION["email"]=='testuser@kcsitglobal.com'){  ?>
+                                    <?php if($usertype == "1" || $usertype == "2"){
+                                    ?>
                                     <td class="tabcon"><b>Update</b></td>
                                     <td class="tabcon"><b>Delete</b></td>
                                     <?php
@@ -56,15 +57,14 @@ if(isset($_POST['request'])){
 
 
                                     <td class="tabcon"><?php echo $row['id'] ?></td>
-                                    <td class="tabcon"><?php echo $row['name'] ?></td>
+                                    <td class="tabcon"><?php echo $row['pname'] ?></td>
                                     <td class="tabcon"><?php echo $row['category_id'] ?></td>
                                     <td class="tabcon"><img src="image/<?php echo $row['Image'] ?>" height="90px;"
                                             width="90px;" border-radius:15px; /></td>
-                                    <td class="tabcon"><?=$_SESSION['email'] ?></td>
+                                    <td class="tabcon"><?php echo $row['created_by_user']?></td>
                                     <td class="tabcon"><?php echo $row['active'] ?></td>
-
-                                    <?php
-                                    if($_SESSION["email"]=='testuser@kcsitglobal.com'){  ?>
+                                    <?php if($usertype == "1" || $usertype == "2"){
+                                    ?>
                                     <td class="tabcon"><a href="product_edit.php?id=<?php echo $row['id']; ?>"
                                             title="Edit"><button style="background-color: skyblue;">Edit</button></a>
                                     </td>

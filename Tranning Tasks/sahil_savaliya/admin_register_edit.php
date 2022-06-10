@@ -1,7 +1,8 @@
 <?php 
 session_start();
-if(!($_SESSION['email'])) {
-    header('location: index.php');
+$email = $_SESSION['email1'];
+if(!$email){
+    header('location: login.php');
 }
 ?>
 
@@ -19,9 +20,8 @@ $query = "SELECT * FROM `login_admin` WHERE id=$id";
 <html>
 
 <head>
-    <title>Dashboard</title>
-    <img src="http://jskrishna.com/work/merkury/images/circle-logo.png" alt="merkery_logo"
-        class="visible-xs visible-sm circle-logo">
+    <title>Admin Update</title>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
     </script>
@@ -55,7 +55,7 @@ $query = "SELECT * FROM `login_admin` WHERE id=$id";
         </div>
         <div class="navi">
             <ul>
-                <li class="active"><a href="dashboard.php"><i class="fa fa-home" aria-hidden="true"></i><span
+                <li class="active"><a href="index.php"><i class="fa fa-home" aria-hidden="true"></i><span
                             class="hidden-xs hidden-sm">Home</span></a></li>
             </ul>
         </div>

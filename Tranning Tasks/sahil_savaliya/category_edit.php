@@ -1,9 +1,11 @@
 <?php 
-include 'category_update.php';
+// include 'category_update.php';
 session_start();
-if(!($_SESSION['email'])) {
-    header('location: index.php');
-}
+@$usertype= $_SESSION['utype'];
+
+if($usertype == 1|| $usertype == 2) {
+    header('Location:login.php');
+}   
 ?>
 
 <!-- fatch data -->
@@ -15,17 +17,17 @@ $id = isset($_GET['id']) ? $_GET['id'] : '';
 $query = "SELECT * FROM `category` WHERE id=$id";
 
 $result = mysqli_query($conn, $query);
-echo $result;
-exit;
+// echo $result;
+
 $row = mysqli_fetch_assoc($result);
+
 ?>
+
 
 <html>
 
 <head>
-    <title>Dashboard</title>
-    <img src="http://jskrishna.com/work/merkury/images/circle-logo.png" alt="merkery_logo"
-        class="visible-xs visible-sm circle-logo">
+    <title>Category Update</title>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
     </script>
@@ -82,7 +84,7 @@ $row = mysqli_fetch_assoc($result);
                        
                     </div>
                 </div>
-                <form  method="POST">
+    <form action="category_update.php" method="POST">
         <div class="container">
             <h1>Add Category <p align="right">
                     <input type="button" value="Back" class="btn btn-primary" onclick="history.back()" />
@@ -91,16 +93,17 @@ $row = mysqli_fetch_assoc($result);
             </h1>
 
             <hr>
+            <input type="hidden"  name="id" value="<?php echo $row['id']; ?>"  >
 
             <label><b>Name:</b></label>
+
             <input type="text" placeholder="Enter Name" name="name" id="name" value="<?php echo $row['name']; ?>" required>
 
             <label><b>Active:</b></label><br>
                             <select id="active_data" name="active_data" class="form-control">
                                 <option value="">Choose Active Status</option>
-                                <option value="yes" <?php echo $row['active_data'] == "yes" ? "selected=selected" : ""; ?> class="form-control">Yes</option>
-                                <option value="no" <?php echo $row['active_data'] == "no" ? "selected=selected" : ""; ?> class="form-control">No</option>
-                            </select>
+                                <option value="yes" <?php echo $row['active']=="yes"?"selected=selected":""; ?>>Yes</option>
+                            <option value="no" <?php echo $row['active']=="no"?"selected=selected":""; ?>>No</option>                            </select>
                         <small id="ActiveValidation" class="text-danger"></small><br>
                     
 

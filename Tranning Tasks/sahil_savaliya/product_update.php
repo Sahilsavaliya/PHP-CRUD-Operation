@@ -47,7 +47,7 @@ if($nm != "" && $cat_id != "" && $active !="")
 					echo "Error:" . $query . "<br>" . $conn->error;
 				}
 			} else {
-				echo "<center>". "Sorry, there was an error uploading your file." . "<center>";
+				echo "<center>". "Sorry, there was an error uploading your image." . "<center>";
 			}
 		}
 	}
@@ -61,8 +61,9 @@ if($nm != "" && $cat_id != "" && $active !="")
 		}
 	} 
 }else{
-	echo "<center>.Enter Required Fields.</center>";
-}
+header("Location:product_edit.php?Please input all Required fields..!!");
+	
+	}
 
 }
 ?>

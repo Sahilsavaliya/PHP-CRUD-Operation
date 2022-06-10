@@ -1,10 +1,11 @@
 <?php 
 session_start();
 require 'dbconnect.php';
+@$email = $_SESSION['email1'];
+@$user = $_SESSION['utype'];
 
-
-if(!($_SESSION['email'])) {
-    header('location:index.php');
+if(!$user == 1 || !$user == 2) {
+    header('location:login.php');
 }
 ?>
 
@@ -42,7 +43,7 @@ if(!($_SESSION['email'])) {
                 </div>
                 <div class="navi">
                     <ul>
-                        <li class="active"><a href="dashboard.php"><i class="fa fa-home" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Home</span></a></li>
+                        <li class="active"><a href="index.php"><i class="fa fa-home" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Home</span></a></li>
                         
 
                     </ul>
@@ -104,7 +105,7 @@ if(!($_SESSION['email'])) {
             <small id="Category_IdValidation" class="text-danger"></small><br>
 
             <label><b>Product Image:</b></label>
-            <input class="form-group" type="file" name="fileToUpload" id="fileToUpload" required>
+            <input class="form-group" type="file" name="fileToUpload" id="fileToUpload" required accept=",.jpg,.png,.jpeg">
             <small id="ImageValidation" class="text-danger"></small><br>
 
 

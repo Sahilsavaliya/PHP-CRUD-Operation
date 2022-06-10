@@ -1,7 +1,8 @@
 <?php
 session_start();
-if (!($_SESSION['email'])) {
-    header('location: index.php');
+$usertype =$_SESSION['utype'];
+if(!$usertype == "1"|| $usertype == "2") {
+    header('Location:login.php');
 }
 ?>
 
@@ -9,8 +10,6 @@ if (!($_SESSION['email'])) {
 <?php
 require 'dbconnect.php';
 require 'product_update.php';
-require 'product_image_update.php';
-
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 // echo"$id"; 
 $query = "SELECT * FROM `product` WHERE id=$id";
@@ -106,7 +105,7 @@ $row = mysqli_fetch_assoc($result);
 
                         <label><b>Image:</b></label>
                         <input type="file" name="fileToUpload" id="fileToUpload">
-                        <input type="hidden" name="fileToUpload_old" value="<?php echo $row['fileToUpload']; ?>"><br>
+                        <input type="hidden" name="fileToUpload_old" required accept=",.jpg,.png,.jpeg" value="<?php echo $row['fileToUpload']; ?>"><br>
 
 
                         <label><b>Product Active Status:</b></label><br>

@@ -11,6 +11,7 @@ $nm = $_POST['name'];
 $cat_id = $_POST['category_id'];
 $active = $_POST['active'];
 $name = $_FILES['fileToUpload']['name'];
+$created_by = $_SESSION['email1'];
 // $rname=rand().$fi;
 if($nm != "" && $cat_id != ""&& $active != ""&& $name != "")
  {
@@ -37,9 +38,9 @@ if($nm != "" && $cat_id != ""&& $active != ""&& $name != "")
         // if everything is ok, try to upload file
     } else {
         if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-            $sql="INSERT INTO `product`(`id`, `name`, `category_id`, `Image`, `active`) VALUES ('$id','$nm','$cat_id','$name','$active')";
+            $sql="INSERT INTO `product`(`id`, `name`, `category_id`, `Image`,`created_by_user`, `active`) VALUES ('$id','$nm','$cat_id','$name','$created_by','$active')";
             if(mysqli_query($conn, $sql)){
-                header("Location:dashboard.php");
+                header("Location:index.php");
             } else{
                 echo "<center>"."ERROR: Sorry $sql. ". mysqli_error($conn)."</center><br>";
             }
@@ -49,5 +50,9 @@ if($nm != "" && $cat_id != ""&& $active != ""&& $name != "")
             echo "<center>"."Sorry, there was an error image"."</center><br>";
         }
     }
+}else{
+header("Location:product.php?Please input all Required fields..!!");
+
+
 }
 ?>

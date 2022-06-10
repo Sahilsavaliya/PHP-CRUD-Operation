@@ -1,17 +1,18 @@
 <?php 
+error_reporting(0);
 session_start();
 require 'dbconnect.php';
+$email= $_SESSION['email1'];
+$type = $_SESSION['utype'];
 
-
-if(!($_SESSION['email'])) {
-    header('location:index.php');
+if($type == 2){
+    header("Location:login.php");
 }
 ?>
 
 <html> 
     <head>
-        <title>Dashboard</title>
-        <img src="http://jskrishna.com/work/merkury/images/circle-logo.png" alt="merkery_logo" class="visible-xs visible-sm circle-logo">
+        <title>admin_register</title>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
         <script src="js/dashboard.js"> </script>
         <link href="css/dashboard.css" rel="stylesheet" id="bootstrap-css">
@@ -40,7 +41,7 @@ if(!($_SESSION['email'])) {
                 </div>
                 <div class="navi">
                     <ul>
-                        <li class="active"><a href="dashboard.php"><i class="fa fa-home" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Home</span></a></li>
+                        <li class="active"><a href="index.php"><i class="fa fa-home" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Home</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -94,6 +95,8 @@ if(!($_SESSION['email'])) {
             <label><b>Password:</b></label>
             <input type="password" placeholder="Enter Password" name="password" id="password" required>
             <small id="PasswordValidation" class="text-danger"></small><br>
+
+            
 
 
             <button type="submit" name="submit" class="registerbtn">Register</button>

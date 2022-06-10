@@ -1,9 +1,9 @@
 <?php 
-if(! isset($_SESSION)) {
-    session_start();
-}
-if(!($_SESSION['email'])) {
-    header('location: index.php');
+session_start();
+@$email = $_SESSION['email1'];
+@$usertype = $_SESSION['utype'];
+if(!$email)  {
+    header('Location:login.php');
 }
 ?>
 <html> 
@@ -12,7 +12,7 @@ if(!($_SESSION['email'])) {
         <img src="http://jskrishna.com/work/merkury/images/circle-logo.png" alt="merkery_logo" class="visible-xs visible-sm circle-logo">
                         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
                         <script src="js/dashboard.js"> </script>
-                        <link href="css/dashboard.css" rel="stylesheet" id="bootstrap-css">\
+                        <link href="css/dashboard.css" rel="stylesheet" id="bootstrap-css">
                         <link href="css/admin_register.css" rel="Stylesheet" type="text/css" />
                         <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet">
                         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">

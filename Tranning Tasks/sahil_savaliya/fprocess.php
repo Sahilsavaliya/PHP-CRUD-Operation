@@ -14,14 +14,17 @@ $gen = $_POST['gender'];
 $hob = implode(',',$_POST['hobbies']);
 $em = $_POST['email'];
 $pass = $_POST['password'];
+$usertype = "2";
 
      if($nm !="" && $gen !="" && $hob !=""  && $em !="" && $pass !=""){
 
-        $query="INSERT INTO `login_admin`
-         VALUES ('$id','$nm','$gen','$hob','$em','$pass')";
-        // echo $query;
+        $query="INSERT INTO `login_admin` VALUES ('$id','$nm','$gen','$hob','$em','$pass',$usertype)";
+         echo $query;
+        // exit;      
         $result=mysqli_query($conn,$query);
-        // var_dump($result);
+        //  var_dump($result);
+         
+
         if ($result)
           {
      
@@ -30,7 +33,7 @@ $pass = $_POST['password'];
         }
         else {
 	        //  header("location:form.php");
-            echo "not insert";
+            echo "Not Insert";
         }
 }
 } 
