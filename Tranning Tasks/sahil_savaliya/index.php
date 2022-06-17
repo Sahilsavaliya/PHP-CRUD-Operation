@@ -67,31 +67,23 @@ echo $usertype;
                 <li class="active"><a href=""><i class="fa fa-home" aria-hidden="true"></i><span
                             class="hidden-xs hidden-sm">Home</span></a></li>
 
-                <li><a href="category_show.php"><i class="" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Add
+                <li><a href="admin/category_show.php"><i class="" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Add
                             Category</span></a></li>
-                            <?php if($usertype == "1" || $usertype == "2"){
+                <?php if($usertype == "1" || $usertype == "2"){
                                     ?>
-                <li><a href="product.php"><i class="" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Add
+                <li><a href="admin/product.php"><i class="" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Add
                             Product</span></a></li>
-                            <?php } ?>
-                <li><a href="admin_register_view.php"><i class="" aria-hidden="true"></i><span
+                <?php } ?>
+                <li><a href="admin/admin_register_view.php"><i class="" aria-hidden="true"></i><span
                             class="hidden-xs hidden-sm">Users</span></a></li>
 
             </ul>
         </div>
     </div>
     <div class="col-md-10 col-sm-11 display-table-cell v-align">
-        <!--<button type="button" class="slide-toggle">Slide Toggle</button> -->
         <div class="row">
             <header>
                 <div class="col-md-7">
-
-                    <!-- <nav class="navbar-default pull-left">
-                                <div class="navbar-header">
-                               
-                                </div>
-                            </nav> -->
-
                 </div>
                 <div class="col-md-5">
                     <div class="header-rightside">
@@ -99,14 +91,14 @@ echo $usertype;
                             <?php
                                     if(!empty($email)) {
                                     ?>
-                            <a href="super_admin_logout.php"
+                            <a href="admin/super_admin_logout.php"
                                 onclick="return confirm('Are you sure want to logout?')"><button type="button"
                                     class="btn btn-danger">Logout</button>
                                 <?php 
                                 }else{
                                      ?>
-                                <a href="login.php"><button type="button"
-                                        class="btn btn-primary">Login</button> <?php } ?>
+                                <a href="admin/login.php"><button type="button" class="btn btn-primary">Login</button>
+                                    <?php } ?>
                         </ul>
                     </div>
                 </div>
@@ -151,11 +143,6 @@ echo $usertype;
                                                 <td class="tabcon"><b>Delete</b></td>
                                                 <?php } ?>
 
-
-
-
-
-
                                                 <?php
                                                 include 'dbconnect.php';
                                                 $query = "SELECT p.id, p.pname, c.name,a.email,p.active,p.Image FROM product p INNER JOIN category c ON p.category_id = c.id INNER JOIN login_admin a ON p.created_by_user = a.email where c.active= 'yes' and p.active='yes'"; 
@@ -184,11 +171,11 @@ echo $usertype;
                                                 <?php if($usertype == 1 || $usertype == 2){
                                     ?>
                                                 <td class="tabcon"><a
-                                                        href="product_edit.php?id=<?php echo $row['id']; ?>"
+                                                        href="admin/product_edit.php?id=<?php echo $row['id']; ?>"
                                                         title="Edit"><button class="btn btn-success">Edit</button></a>
                                                 </td>
                                                 <td class="tabcon"><a
-                                                        href="product_delete.php?id=<?php echo $row['id']; ?>"
+                                                        href="admin/product_delete.php?id=<?php echo $row['id']; ?>"
                                                         onclick="return confirm('Are you sure want to delete?')"
                                                         title="delete"><button id="button11" class="btn btn-danger"
                                                             title="Delete">Delete</button></a>
@@ -233,10 +220,7 @@ echo $usertype;
                                    }
                                       } 
                                 ?>
-
-
                                         </select>
-
                                         <br><br>
                                     </table>
 
@@ -253,34 +237,6 @@ echo $usertype;
     </div>
     </div>
     </div>
-    </div>
-    <!-- </div> -->
-
-    <!-- </div> -->
-
-    <!-- Modal -->
-    <div id="add_project" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header login-header">
-                    <button type="button" class="close" data-dismiss="modal">×</button>
-                    <h4 class="modal-title">Add Project</h4>
-                </div>
-                <div class="modal-body">
-                    <input type="text" placeholder="Project Title" name="name">
-                    <input type="text" placeholder="Post of Post" name="mail">
-                    <input type="text" placeholder="Author" name="passsword">
-                    <textarea placeholder="Desicrption"></textarea>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="cancel" data-dismiss="modal">Close</button>
-                    <button type="button" class="add-project" data-dismiss="modal">Save</button>
-                </div>
-            </div>
-
-        </div>
     </div>
 
 </body>
