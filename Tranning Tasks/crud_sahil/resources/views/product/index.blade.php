@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <div class="container">
     <div class="row">
@@ -13,7 +15,17 @@
                 <a class="btn btn-success" href="{{ route('product.create') }}"> Create New Product</a>
                 <a class="btn btn-success" href="{{ route('category.index') }}"> Category</a>
                 <a class="btn btn-success" href="{{ route('crud.index') }}"> Admin</a>
+
+                <div class="float-end">
+                    @if(request()->has('trashed'))
+                    <a href="{{ route('product.index') }}" class="btn btn-warning">View All products</a>
+                    <a href="{{ route('product.restoreAll') }}" class="btn btn-info">Restore All</a>
+                    @else
+                    <a href="{{ route('product.index', ['trashed' => 'product']) }}" class="btn btn-warning">View Deleted product</a>
+                    @endif
+                </div>
                 <div class="pull-right">
+
                 </div>
 
             </div>
@@ -22,7 +34,7 @@
 
     @if ($message = Session::get('success'))
     <div class="alert alert-success">
-        <p>{{ $message }}</p>
+    {{ session()->get('success') }}
     </div>
     @endif
     <br>
@@ -40,29 +52,50 @@
         <tbody id="tbody">
             @foreach ($data as $key => $values)
             <tr>
-                <td>{{ ++$i }}</td>
+                <td>{{  $values->id }}</td>
                 <td>{{ $values->pname }}</td>
                 <td>{{ $values->category_id }}</td>
                 <td><img src=" {{asset('public/images/' . $values->image)}}" width="80" height="80"></td>
                 <td>{{ $values->createdby_user }}</td>
                 <td>{{ $values->active_status }}</td>
                 <td>
+
+                    @if(request()->has('trashed'))
+                   <form action="{{ route('product.forcedlt',$values->id) }}" method="GET">
+                   <a href="{{ route('product.restore', $values->id) }}" class="btn btn-success">Restore</a>
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger delete">Delete</button>
+                    </form>
+                    @else
+
                     <form action="{{ route('product.destroy',$values->id) }}" method="POST">
                         <a class="btn btn-primary" href="{{ route('product.edit',$values->id) }}">Edit</a>
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="submit" class="btn btn-danger delete">Delete</button>
                     </form>
+                    @endif
                 </td>
-
-
-
             </tr>
             @endforeach
     </table>
-    {!! $data->links() !!}
-    
+
+
+
 </div>
+
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('.delete').click(function(e) {
+        if (!confirm('Are you sure you want to delete this product?')) {
+            e.preventDefault();
+        }
+    });
+});
+</script>
 
 
 @endsection

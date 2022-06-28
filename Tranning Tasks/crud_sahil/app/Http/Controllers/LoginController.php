@@ -19,7 +19,7 @@ class LoginController extends Controller
 
     public function index()
     {        
-        $data = User::latest()->paginate(5);        
+        $data = User::where('usertype','0')->latest()->paginate(5);        
     
         return view('crud.index',compact('data'))
             ->with('i', (request()->input('page', 1) - 1) * 2);
@@ -130,9 +130,9 @@ class LoginController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $crud)
+    public function destroy( $id)
     {
-        $crud->delete();
+        User::find($id)->delete();
     
         return redirect()->route('crud.index')
                         ->with('success','Post deleted successfully');

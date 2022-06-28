@@ -1,5 +1,10 @@
 @extends('layouts.app')
 @section('content')
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <div class="container">
     <div class="row">
         <div class="col-lg-12 margin-tb">
@@ -13,7 +18,7 @@
                 <a class="btn btn-success" href="{{ route('product.index') }}"> Home </a>
             </div>
         </div>
-    </div>
+    
 
 
     @if ($message = Session::get('success'))
@@ -21,6 +26,8 @@
         <p>{{ $message }}</p>
     </div>
     @endif
+    </div>
+
     <br>
     <table class="table table-bordered">
         <tr>
@@ -51,7 +58,7 @@
                         <a class="btn btn-primary" href="{{ route('crud.edit',$value->id) }}">Edit</a>
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="submit" class="btn btn-danger delete">Delete</button>
                         @endif
                     </form>
                 </td>
@@ -59,5 +66,15 @@
             @endforeach
     </table>
 </div>
+
+<script type="text/javascript">
+            $(document).ready(function() {
+                $('.delete').click(function(e) {
+                    if(!confirm('Are you sure you want to delete this admin?')) {
+                        e.preventDefault();
+                    }
+                });
+            });
+        </script>
 {!! $data->links() !!}
 @endsection

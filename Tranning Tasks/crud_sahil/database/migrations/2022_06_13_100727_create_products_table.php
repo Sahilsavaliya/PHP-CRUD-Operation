@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->string('image')->nullable();
             $table->string('createdby_user');
             $table->enum('active_status',['Yes','No']);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

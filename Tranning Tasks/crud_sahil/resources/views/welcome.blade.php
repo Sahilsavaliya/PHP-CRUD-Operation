@@ -69,7 +69,7 @@ $(document).ready(function() {
                                         <td>' + i + '</td>\
                                         <td>' + products[i]['pname'] + '</td>\
                                         <td>' + products[i]['category_id'] + '</td>\
-                                        <td> <img src="public/images/' + products[i]['image'] + '"width="160" height="80"> </td>\
+                                        <td> <img src="public/images/' + products[i]['image'] + '"width="80" height="80"> </td>\
                                         <td>' + products[i]['createdby_user'] + '</td>\
                                         <td>' + products[i]['active_status'] + '</td>\
                                         </tr>';

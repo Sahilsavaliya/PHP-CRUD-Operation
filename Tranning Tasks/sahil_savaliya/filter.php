@@ -65,11 +65,11 @@ if(isset($_POST['request'])){
                                     <td class="tabcon"><?php echo $row['active'] ?></td>
                                     <?php if($usertype == "1" || $usertype == "2"){
                                     ?>
-                                    <td class="tabcon"><a href="product_edit.php?id=<?php echo $row['id']; ?>"
+                                    <td class="tabcon"><a href="../product_edit.php?id=<?php echo $row['id']; ?>"
                                             title="Edit"><button style="background-color: skyblue;">Edit</button></a>
                                     </td>
                                     <!-- <td class="tabcon"><a href="delete.php?id=</ ?php echo $row['id']; ?>" title="Delete"><button style="background-color: red;">Delete</button></a></td> -->
-                                    <td class="tabcon"><a href="product_delete.php?id=<?php echo $row['id']; ?>"
+                                    <td class="tabcon"><a href="../product_delete.php?id=<?php echo $row['id']; ?>"
                                             onclick="return confirm('Are you sure want to delete?')"
                                             title="delete"><button style="background-color: red;">Delete</button></a>
                                     </td>

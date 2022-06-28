@@ -5,6 +5,7 @@ use App\Http\model;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Validator;
 use PhpParser\Node\Stmt\Catch_;
 use Prophecy\Call\Call;
@@ -23,6 +24,7 @@ class ProductController extends Controller
 
     public function dashboard()
     {
+        
         $data = Product::latest()->paginate(5);
         $newedata['newdata'] = "";       
     
@@ -33,15 +35,17 @@ class ProductController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
-        $data = Product::latest()->paginate(5);   
-        $a = Category::get('cname');     
+        if ($request->has('trashed')) {
+            $data = Product::onlyTrashed()->get();
+        $a = Category::get('cname');
+        }else {
+            $data= Product::get();
+        }    
     
-        return view('product.index',compact('data','a'))
-            ->with('i', (request()->input('page', 1) - 1) * 2);
-            
-
+        return view('product.index',compact('data'))
+                ->with('i', (request()->input('page', 1) - 1) * 2);
     }
 
     /**
@@ -155,15 +159,52 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        $product->delete();
+        Product::find($id)->delete();
     
         return redirect()->route('product.index')
-                        ->with('success','Post deleted successfully');
+                        ->with('success','Product deleted successfully');
     }
-    
 
+        /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function forcedlt($id)
+    {
+    //    Product::withTrashed()->find($id)->delete();
+       Product::onlyTrashed()->find($id)->forceDelete();
+        return redirect()->back()
+                        ->with('success','permanent deleted successfully');
+    }
+
+    
+            /**
+     * restore specific post
+     *
+     * @return void
+     */
+    public function restore($id)
+    {
+        Product::withTrashed()->find($id)->restore();
+  
+        return redirect()->back();
+    }
+
+        /**
+     * restore all post
+     *
+     * @return response()
+     */
+    public function restoreAll()
+    {
+        Product::onlyTrashed()->restore();
+  
+        return redirect()->back();
+    }
 
 
 }

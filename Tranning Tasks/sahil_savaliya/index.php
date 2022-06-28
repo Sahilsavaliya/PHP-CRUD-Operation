@@ -27,6 +27,10 @@ echo $usertype;
         integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"
         integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk=" crossorigin="anonymous"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
     <script>
     $(document).ready(function() {
         $("#department").on('change', function() {
@@ -48,17 +52,10 @@ echo $usertype;
 
 
 </head>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"
-    integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
 <body class="home">
-    <!-- <div class="container-fluid display-table"> -->
-    <!-- <div class="row display-table-row"> -->
+    <div class="container-fluid display-table">
+    <div class="row display-table-row">
     <div class="col-md-2 col-sm-1 hidden-xs display-table-cell v-align box" id="navigation">
         <div class="logo">
         </div>
@@ -67,7 +64,8 @@ echo $usertype;
                 <li class="active"><a href=""><i class="fa fa-home" aria-hidden="true"></i><span
                             class="hidden-xs hidden-sm">Home</span></a></li>
 
-                <li><a href="admin/category_show.php"><i class="" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Add
+                <li><a href="admin/category_show.php"><i class="" aria-hidden="true"></i><span
+                            class="hidden-xs hidden-sm">Add
                             Category</span></a></li>
                 <?php if($usertype == "1" || $usertype == "2"){
                                     ?>
@@ -105,7 +103,6 @@ echo $usertype;
                 <hr>
                 <h3 style="text-align: center;"><a><?= $email ?></a></h3>
                 <h1 style="text-align: center; color: steelblue;"><b> Display Product </b></h1>
-
 
                 <?php
     

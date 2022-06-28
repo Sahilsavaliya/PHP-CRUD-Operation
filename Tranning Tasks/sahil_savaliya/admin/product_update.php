@@ -1,9 +1,9 @@
 <?php
 require '../dbconnect.php';
- $gid=$_GET['id'];
+ @$gid=$_GET['id'];
 if(isset($_POST['submit']))
 {
-    $nm = $_POST['name'];
+    $nm = $_POST['pname'];
     $cat_id = $_POST['category_id'];
     $active = $_POST['active'];
     $name = $_FILES['fileToUpload']['name']; 
@@ -11,7 +11,7 @@ if(isset($_POST['submit']))
 
 if($nm != "" && $cat_id != "" && $active !="")
 {
-	$target_dir = "image/";
+	$target_dir = "../image/";
 	$target_file = $target_dir . $rname;
 	$uploadOk = 1;
 	$filetype = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -37,12 +37,12 @@ if($nm != "" && $cat_id != "" && $active !="")
 				$dataf = mysqli_query($conn, $sqlf);
 				$totalf = mysqli_num_rows($dataf);
 				$rowf = mysqli_fetch_assoc($dataf);
-				unlink("image/".$rowf['Image']);
-				$query = "UPDATE `product` SET `name`='$nm',`category_id`='$cat_id',`Image`='$rname',`active`='$active' WHERE id=$gid";
+				unlink("../image/".$rowf['Image']);
+				$query = "UPDATE `product` SET `pname`='$nm',`category_id`='$cat_id',`Image`='$rname',`active`='$active' WHERE id=$gid";
 				$result1=mysqli_query($conn,$query);
 				if ($result1 == TRUE) {
 					
-					header("Location:dashboard.php");
+					header("Location:../index.php");
 				}else{
 					echo "Error:" . $query . "<br>" . $conn->error;
 				}
@@ -52,10 +52,10 @@ if($nm != "" && $cat_id != "" && $active !="")
 		}
 	}
 	else{
-		$query = "UPDATE `product` SET `name`='$nm', `category_id` ='$cat_id',`active`='$active' WHERE `id`='$gid'";
+		$query = "UPDATE `product` SET `pname`='$nm', `category_id` ='$cat_id',`active`='$active' WHERE `id`='$gid'";
 		$result1 = mysqli_query($conn, $query);
 		if ($result1 == TRUE) {
-			header("Location:dashboard.php");
+			header("Location:../index.php");
 		}else{
 			echo "Error:" . $query . "<br>" . $conn->error;
 		}

@@ -67,6 +67,9 @@
                     @endif
                 </div>
             </div>
+           
+            <img src=" {{asset('public/images/' . $product->image)}}" width="80" height="80">
+           
         </div>
 
         <div class="row">

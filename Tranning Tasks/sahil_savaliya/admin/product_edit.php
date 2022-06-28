@@ -81,7 +81,7 @@ $row = mysqli_fetch_assoc($result);
                         <hr>
 
                         <label><b>Product Name:</b></label>
-                        <input type="text" placeholder="Enter Name" name="name" id="name"
+                        <input type="text" placeholder="Enter Name" name="pname" id="name"
                             value="<?php echo $row['pname']; ?>" required>
 
                         <label><b>Category_Id:</b></label><br>
@@ -104,10 +104,11 @@ $row = mysqli_fetch_assoc($result);
                         </select><br><br>
 
                         <label><b>Image:</b></label>
-                        <input type="file" name="fileToUpload" id="fileToUpload">
-                        <input type="hidden" name="fileToUpload_old" required accept=",.jpg,.png,.jpeg" value="<?php echo $row['fileToUpload']; ?>"><br>
+                        <input type="file" name="fileToUpload" id="fileToUpload" ><br>
+                        <img src="../image/<?php echo $row['Image'] ?>"
+                        height="90px;" width="90px;" border-radius:15px; />
 
-
+                        <br><br>
                         <label><b>Product Active Status:</b></label><br>
                         <select id="active" name="active">
                             <!-- <option value=" ">Choose Active Status</option> -->

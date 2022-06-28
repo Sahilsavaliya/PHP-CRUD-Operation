@@ -1,6 +1,7 @@
 @extends('crud.layout')
 
 @section('content')
+
 <div class="container" style="margin-top: 50px;">
     <div class="row">
         <div class="col-lg-12 margin-tb">

@@ -18,13 +18,15 @@ class CategoryController extends Controller
         $this->middleware('auth');
     }
     
-    public function index()
+    public function index(Request $request)
     {        
-            $data = Category::latest()->paginate(5);        
-        
-            return view('category.index',compact('data'))
-                ->with('i', (request()->input('page', 1) - 1) * 2);
-
+        if ($request->has('trashed')) {
+            $data = Category::onlyTrashed()->get();
+        }else {
+            $data= Category::get();
+        }    
+    
+        return view('category.index',compact('data'));
     }
     /**
      * Show the form for creating a new resource.
@@ -118,11 +120,36 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        $category->delete();
+        Category::find($id)->delete();
     
         return redirect()->route('category.index')
                         ->with('success','Post deleted successfully');
     }
+
+                /**
+     * restore specific post
+     *
+     * @return void
+     */
+    public function restore($id)
+    {
+        Category::withTrashed()->find($id)->restore();
+  
+        return redirect()->back();
+    }
+
+        /**
+     * restore all post
+     *
+     * @return response()
+     */
+    public function restoreAll()
+    {
+        Category::onlyTrashed()->restore();
+  
+        return redirect()->back();
+    }
+
 }
