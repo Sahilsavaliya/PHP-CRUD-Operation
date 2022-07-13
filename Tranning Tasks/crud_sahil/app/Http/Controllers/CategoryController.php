@@ -128,6 +128,21 @@ class CategoryController extends Controller
                         ->with('success','Post deleted successfully');
     }
 
+
+            /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function forcedlt($id)
+    {
+    //    Product::withTrashed()->find($id)->delete();
+    Category::onlyTrashed()->find($id)->forceDelete();
+        return redirect()->back()
+                        ->with('success','permanent deleted successfully');
+    }
+
                 /**
      * restore specific post
      *

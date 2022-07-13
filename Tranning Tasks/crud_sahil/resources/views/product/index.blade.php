@@ -8,7 +8,15 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2 style="text-align: center;"><b>Product List</b></h2><br>
+                @if(request()->has('trashed'))
+                <h2 style="text-align: center;"><b> Delete Product List
+                        <hr>
+                    </b></h2><br>
+                @else
+                <h2 style="text-align: center;"><b>Product List
+                        <hr>
+                    </b></h2><br>
+                @endif
             </div>
             <br>
             <div class="pull-right">
@@ -32,12 +40,15 @@
         </div>
     </div>
 
-    @if ($message = Session::get('success'))
-    <div class="alert alert-success">
-    {{ session()->get('success') }}
+    <div id="msg">
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            {{ session()->get('success') }}
+        </div>
+        @endif
     </div>
-    @endif
     <br>
+
     <table class="table table-bordered">
         <tr>
             <th>No</th>
@@ -52,7 +63,7 @@
         <tbody id="tbody">
             @foreach ($data as $key => $values)
             <tr>
-                <td>{{  $values->id }}</td>
+                <td>{{ $values->id }}</td>
                 <td>{{ $values->pname }}</td>
                 <td>{{ $values->category_id }}</td>
                 <td><img src=" {{asset('public/images/' . $values->image)}}" width="80" height="80"></td>
@@ -61,8 +72,8 @@
                 <td>
 
                     @if(request()->has('trashed'))
-                   <form action="{{ route('product.forcedlt',$values->id) }}" method="GET">
-                   <a href="{{ route('product.restore', $values->id) }}" class="btn btn-success">Restore</a>
+                    <form action="{{ route('product.forcedlt',$values->id) }}" method="GET">
+                        <a href="{{ route('product.restore', $values->id) }}" class="btn btn-success">Restore</a>
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger delete">Delete</button>
@@ -88,14 +99,16 @@
 
 
 <script type="text/javascript">
-$(document).ready(function() {
-    $('.delete').click(function(e) {
-        if (!confirm('Are you sure you want to delete this product?')) {
-            e.preventDefault();
-        }
+    $(document).ready(function() {
+        $('.delete').click(function(e) {
+            if (!confirm('Are you sure you want to delete this product?')) {
+                e.preventDefault();
+            }
+        });
     });
-});
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 
+{!! $data->links() !!}}
 @endsection

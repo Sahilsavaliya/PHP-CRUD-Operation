@@ -34,18 +34,17 @@ class ProductController extends Controller
 
     }
 
-
     public function index(Request $request)
     {
         if ($request->has('trashed')) {
-            $data = Product::onlyTrashed()->get();
-        $a = Category::get('cname');
+            $data = Product::onlyTrashed()->paginate(5);
+        $a = Category::where('active', 'yes')->get('cname');
         }else {
-            $data= Product::get();
+            $data= Product::latest()->paginate(5);
         }    
     
         return view('product.index',compact('data'))
-                ->with('i', (request()->input('page', 1) - 1) * 2);
+                ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -83,9 +82,6 @@ class ProductController extends Controller
         Product::create($product);
         return redirect()->route('product.index')
                         ->with('success','product Added successfully.');
-
-   
-
     }
     
     /**
@@ -149,7 +145,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
 
@@ -191,7 +187,7 @@ class ProductController extends Controller
     {
         Product::withTrashed()->find($id)->restore();
   
-        return redirect()->back();
+        return redirect()->back()->with('success','Restore Successfully');;
     }
 
         /**
@@ -203,8 +199,8 @@ class ProductController extends Controller
     {
         Product::onlyTrashed()->restore();
   
-        return redirect()->back();
+        return redirect()->back()->with('success','Restore All Deleted data');;
     }
 
-
+       
 }

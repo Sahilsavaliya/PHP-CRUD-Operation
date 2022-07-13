@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Product;
 use Illuminate\Auth\Events\Login as EventsLogin;
 use Illuminate\Support\Facades\DB;
+use Laravel\Ui\Presets\React;
 
 class LoginController extends Controller
 {
@@ -17,13 +18,18 @@ class LoginController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index()
+    public function index(Request $request)
     {        
         $data = User::where('usertype','0')->latest()->paginate(5);        
     
+        if ($request->has('trashed')) {
+            $data = User::onlyTrashed()->paginate(5);
+        }else {
+            $data= User::latest()->paginate(5);
+        }    
+    
         return view('crud.index',compact('data'))
-            ->with('i', (request()->input('page', 1) - 1) * 2);
-
+                ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
 
@@ -136,6 +142,44 @@ class LoginController extends Controller
     
         return redirect()->route('crud.index')
                         ->with('success','Post deleted successfully');
+    }
+
+            /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function forcedlt($id)
+    {
+       User::onlyTrashed()->find($id)->forceDelete();
+        return redirect()->back()
+                        ->with('success','permanent deleted successfully');
+    }
+
+
+                /**
+     * restore specific post
+     *
+     * @return void
+     */
+    public function restore($id)
+    {
+        User::withTrashed()->find($id)->restore();
+  
+        return redirect()->back()->with('success','Restore Successfully');;
+    }
+
+        /**
+     * restore all post
+     *
+     * @return response()
+     */
+    public function restoreAll()
+    {
+        User::onlyTrashed()->restore();
+  
+        return redirect()->back()->with('success','Restore All Deleted data');;
     }
 
 
