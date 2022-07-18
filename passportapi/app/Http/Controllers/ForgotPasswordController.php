@@ -34,6 +34,6 @@ class ForgotPasswordController extends Controller
             return response()->json(["msg" => "Invalid token provided"], 400);
         }
 
-        return response()->json(["msg" => "Password has been successfully changed"]);
+        return view('auth.response');
     }
 }
