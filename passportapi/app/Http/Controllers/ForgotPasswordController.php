@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -11,11 +12,17 @@ use Illuminate\Support\Facades\Validator;
 class ForgotPasswordController extends Controller
 {
     public function forgot() {
+        $user = User::where('email', request('email'))->first();
+        if($user){
         $credentials = request()->validate(['email' => 'required|email']);
 
         Password::sendResetLink($credentials);
 
         return response()->json(["msg" => 'Reset password link sent on your email id.']);
+        }else{
+            return response()->json(["msg" => 'Please enter valid email address.']);
+
+        }
     }
 
     public function reset() {

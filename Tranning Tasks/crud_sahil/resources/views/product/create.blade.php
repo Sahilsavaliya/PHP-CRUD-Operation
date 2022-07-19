@@ -49,7 +49,7 @@
                     <select name="category_id" class="form-control" value="{{old('category_id')}}" >
                         <option value="">Select</option>
                     @foreach($a as $key => $value)
-                    <option value=" {{ $value->cname }}"> {{ $value->cname }}</option>
+                    <option value=" {{$value->id}}"> {{ $value->cname }}</option>
                     @endforeach
                     </select>
 

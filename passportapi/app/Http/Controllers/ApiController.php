@@ -57,18 +57,18 @@ class ApiController extends Controller
         }
         $user = User::where(['email' => request('email')])->first();
 
-        if ($user) {
-            if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-                $token = [];
-                $token['token'] = $user->createToken('Laravel CreateToken')->accessToken;
-                return response()->json(['success' => 'Successfully login', 'token' => $token]);
-            }
+
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            $token = [];
+            $token['token'] = $user->createToken('Laravel CreateToken')->accessToken;
+            return response()->json(['success' => 'Successfully login', 'token' => $token]);
         } else {
             return response()->json(['error' => 'Unauthorised'], 401);
         }
     }
 
-    public function logout(Request $request) {
+    public function logout(Request $request)
+    {
         $request->user()->token()->revoke();
         return response()->json([
             'message'   =>  'Successfully logged out.'
@@ -91,8 +91,11 @@ class ApiController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'cname' => 'required',
-            'active' => 'required',
+            'cname' => 'required|min:4|max:15|String',
+            'active' => 'required|in:yes,no',
+        ],
+        [
+            'cname.required' => 'The category name field is required.',
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
@@ -104,10 +107,16 @@ class ApiController extends Controller
 
     public function update_category(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'cname' => 'required',
-            'active' => 'required',
-        ]);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'cname' => 'required',
+                'active' => 'required',
+            ],
+            [
+                'cname.required' => 'The category name field is required.',
+            ]
+        );
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
@@ -145,9 +154,9 @@ class ApiController extends Controller
         // print_r($request->file('image'));die();
         $validator = Validator::make($request->all(), [
             'image' => ' image |mimes : JPEG,png,jpg',
-            'pname' => 'required',
+            'pname' => 'required|min:4|max:20|unique:true',
             'category_id' => 'required',
-            'active_status' => 'required',
+            'active_status' => 'required|in:yes,no',
 
         ]);
         if ($validator->fails()) {
@@ -168,13 +177,13 @@ class ApiController extends Controller
         $product->created_by_email = auth()->guard('api')->user()->id;
         $product['image'] = $imageName;
 
-        $p1=$request->input('category_id');
-        $category = Category::where('cname','=',$p1)->get('cname');
-        if(!$category->isEmpty()){
+        $p1 = $request->input('category_id');
+        $category = Category::where('cname', '=', $p1)->get('cname');
+        if (!$category->isEmpty()) {
             $product->category_id = $request->input('category_id');
-        $product->save();
-        return Response()->json(['message' => 'Successfully created product'], 200);
-        }else{
+            $product->save();
+            return Response()->json(['message' => 'Successfully created product'], 200);
+        } else {
             return Response()->json(['message' => 'Dose not match category'], 400);
         }
     }

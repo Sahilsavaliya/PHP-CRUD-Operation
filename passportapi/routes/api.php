@@ -25,7 +25,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //login register logout authentication
 Route::post('/register', [ApiController::class,'register']);
 Route::post('/login', [ApiController::class,'login']);
-Route::get('/login', [ApiController::class,'login'])->name('login');
 Route::middleware('auth:api')->post('/logout/{id}', [ApiController::class,'logout']);
 
 
@@ -37,7 +36,7 @@ Route::post('/password/reset', [ForgotPasswordController::class,'reset'])->name(
 //category
 Route::middleware('auth:api')->get('/category', [ApiController::class,'category']);
 Route::middleware('auth:api')->post('/create_category', [ApiController::class,'create_category']);
-Route::middleware('auth:api')->put('/update_category/{id}', [ApiController::class,'update_category']);
+Route::middleware('auth:api')->post('/update_category/{id}', [ApiController::class,'update_category']);
 Route::middleware('auth:api')->delete('/delete_category/{id}', [ApiController::class,'delete_category']);
 
 //product

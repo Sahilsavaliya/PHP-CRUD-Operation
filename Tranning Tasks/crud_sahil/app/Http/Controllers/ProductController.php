@@ -38,7 +38,7 @@ class ProductController extends Controller
     {
         if ($request->has('trashed')) {
             $data = Product::onlyTrashed()->paginate(5);
-        $a = Category::where('active', 'yes')->get('cname');
+        $a = Category::where('active', 'yes')->get();
         }else {
             $data= Product::latest()->paginate(5);
         }    
@@ -54,7 +54,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $a = Category::get('cname');
+        $a = Category::get();
         return view('product.create',compact('a'));
 
     }
