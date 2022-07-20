@@ -39,8 +39,9 @@ class ApiController extends Controller
         $user =  User::create($data);
 
         $token = [];
-        $token['token'] = $user->createToken('Laravel CreateToken')->accessToken;
         $token['name'] = $user->name;
+        $token['token'] = $user->createToken('Laravel CreateToken')->accessToken;
+        
 
 
         return response()->json($token, 200);
@@ -60,6 +61,7 @@ class ApiController extends Controller
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $token = [];
+            $token['name'] = $user->name;
             $token['token'] = $user->createToken('Laravel CreateToken')->accessToken;
             return response()->json(['success' => 'Successfully login', 'token' => $token]);
         } else {
@@ -154,7 +156,7 @@ class ApiController extends Controller
         // print_r($request->file('image'));die();
         $validator = Validator::make($request->all(), [
             'image' => ' image |mimes : JPEG,png,jpg',
-            'pname' => 'required|min:4|max:20|unique:true',
+            'pname' => 'required|min:4|max:20',
             'category_id' => 'required',
             'active_status' => 'required|in:yes,no',
 
@@ -198,7 +200,7 @@ class ApiController extends Controller
             'active_status' => 'required',
 
         ]);
-        // print_r($request->all());die();
+        
         {
 
             $product = Product::find($id);
@@ -248,6 +250,8 @@ class ApiController extends Controller
     public function delete_product($id)
     {
         $user = Product::find($id);
+        unlink(public_path('images/' . $user->image));
+        
         $product = $user->delete($id);
         if ($product) {
             return ['result' => 'successfully deleted record'];
