@@ -17,6 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('cname');
             $table->enum('active',['Yes','No']);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

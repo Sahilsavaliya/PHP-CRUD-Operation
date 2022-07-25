@@ -20,7 +20,7 @@ class ForgotPasswordController extends Controller
 
         return response()->json(["msg" => 'Reset password link sent on your email id.']);
         }else{
-            return response()->json(["msg" => 'Please enter valid email address.']);
+            return response()->json(["msg" => 'Email not exist in our system.']);
 
         }
     }
@@ -43,4 +43,6 @@ class ForgotPasswordController extends Controller
 
         return view('auth.response');
     }
+
+    
 }

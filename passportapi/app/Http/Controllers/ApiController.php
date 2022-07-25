@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\models\User;
 use GrahamCampbell\ResultType\Success;
+use GuzzleHttp\Handler\Proxy;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redis;
@@ -20,6 +21,7 @@ use PHPUnit\Util\Xml\SuccessfulSchemaDetectionResult;
 
 use Laravel\Passport\RefreshToken;
 use Laravel\Passport\Token;
+
 
 class ApiController extends Controller
 {
@@ -41,7 +43,7 @@ class ApiController extends Controller
         $token = [];
         $token['name'] = $user->name;
         $token['token'] = $user->createToken('Laravel CreateToken')->accessToken;
-        
+
 
 
         return response()->json($token, 200);
@@ -84,21 +86,24 @@ class ApiController extends Controller
     //----------------------------------------------Category--------------------------------
     public function category(Request $request)
     {
-        $data = DB::table('categories')->get();
+        $data = Category::all();
 
-        return (response()->json($data));
+        return (response()->json(['data' => $data]));
     }
 
     public function create_category(Request $request)
     {
 
-        $validator = Validator::make($request->all(), [
-            'cname' => 'required|min:4|max:15|String',
-            'active' => 'required|in:yes,no',
-        ],
-        [
-            'cname.required' => 'The category name field is required.',
-        ]);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'cname' => 'required|min:4|max:15|unique:categories|String',
+                'active' => 'required|in:yes,no,YES,NO,Yes,No',
+            ],
+            [
+                'cname.required' => 'The category name field is required.',
+            ]
+        );
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
@@ -112,8 +117,8 @@ class ApiController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'cname' => 'required',
-                'active' => 'required',
+                'cname' => 'required|min:4|max:15|String',
+                'active' => 'required|in:yes,no,YES,NO,Yes,No',
             ],
             [
                 'cname.required' => 'The category name field is required.',
@@ -122,21 +127,33 @@ class ApiController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
-        $user = Category::find($id);
-        $user->cname = $request->input('cname');
-        $user->active = $request->input('active');
-        $user->save();
-        return response()->json(['message' => 'Successfully updated record']);
+        $user = Category::where('id', request('id'))->first();
+        if ($user) {
+
+            $user = Category::find($id);
+            $user->cname = $request->input('cname');
+            $user->active = $request->input('active');
+            $user->save();
+            return response()->json(['message' => 'Successfully updated record']);
+        } else {
+            return response()->json(['message' => 'Category Id not exist']);
+        }
     }
 
     public function delete_category($id)
     {
-        $user = Category::find($id);
-        $test = $user->delete($id);
-        if ($test) {
-            return ['result' => 'successfully deleted record'];
+        $user = Category::where('id', request('id'))->first();
+        if ($user) {
+
+            $user = Category::find($id);
+            $test = $user->delete($id);
+            if ($test) {
+                return ['result' => 'successfully deleted record'];
+            } else {
+                return ['result' => 'failed to delete record'];
+            }
         } else {
-            return ['result' => 'failed to delete record'];
+            return ['result' => 'Category Id not exist'];
         }
     }
 
@@ -145,9 +162,9 @@ class ApiController extends Controller
 
     public function product(Request $request)
     {
-        $data = DB::table('products')->get();
+        $data = Product::all();
 
-        return (response()->json($data));
+        return (response()->json(['data' => $data]));
     }
 
 
@@ -156,7 +173,7 @@ class ApiController extends Controller
         // print_r($request->file('image'));die();
         $validator = Validator::make($request->all(), [
             'image' => ' image |mimes : JPEG,png,jpg',
-            'pname' => 'required|min:4|max:20',
+            'pname' => 'required|min:4|unique:products|max:20',
             'category_id' => 'required',
             'active_status' => 'required|in:yes,no',
 
@@ -164,6 +181,9 @@ class ApiController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
+
+
+
         // $file = $request->file('image');
         $imageName = time() . '.' . $request->image->extension();
         //  print_r($request->image->getClientOriginalExtension());die();
@@ -180,7 +200,7 @@ class ApiController extends Controller
         $product['image'] = $imageName;
 
         $p1 = $request->input('category_id');
-        $category = Category::where('cname', '=', $p1)->get('cname');
+        $category = Category::where('id', '=', $p1)->get('id');
         if (!$category->isEmpty()) {
             $product->category_id = $request->input('category_id');
             $product->save();
@@ -199,49 +219,54 @@ class ApiController extends Controller
             'category_id' => 'required',
             'active_status' => 'required',
 
-        ]);
-        
-        {
+        ]); {
+            $user = Product::where('id', request('id'))->first();
+            if ($user) {
 
-            $product = Product::find($id);
 
-            if (!empty($request->image)) {
+                $product = Product::find($id);
 
-                unlink(public_path('images/' . $product->image));
+                if (!empty($request->image)) {
 
-                $imageName = time() . '.' . $request->image->getClientOriginalExtension();
+                    unlink(public_path('images/' . $product->image));
 
-                $request->image->move(public_path('\images'), $imageName);
+                    $imageName = time() . '.' . $request->image->getClientOriginalExtension();
 
-                $product->pname = $request->pname;
+                    $request->image->move(public_path('\images'), $imageName);
 
-                $product->category_id = $request->category_id;
+                    $product->pname = $request->pname;
 
-                $product->active_status = $request->active_status;
+                    $product->category_id = $request->category_id;
 
-                if ($product->created_by_email == null) {
-                    $product->created_by_email =  auth()->guard('api')->user()->id;
+                    $product->active_status = $request->active_status;
+
+                    if ($product->created_by_email == null) {
+                        $product->created_by_email =  auth()->guard('api')->user()->id;
+                    }
+
+                    $product['image'] = $imageName;
+
+                    $product->update();
+                } else {
+
+                    $product->pname = $request->pname;
+
+                    $product->category_id = $request->category_id;
+
+                    $product->active_status = $request->active_status;
+
+                    if ($product->created_by_email == null) {
+                        $product->created_by_email = auth()->guard('api')->user()->id;
+                    }
+                    $product->update();
                 }
-
-                $product['image'] = $imageName;
-
-                $product->update();
+                return response()->json(['message' =>   'Successfully updated product']);
             } else {
-
-                $product->pname = $request->pname;
-
-                $product->category_id = $request->category_id;
-
-                $product->active_status = $request->active_status;
-
-                if ($product->created_by_email == null) {
-                    $product->created_by_email = auth()->guard('api')->user()->id;
-                }
-                $product->update();
+                return response()->json(['message' => 'Product Id not exist']);
             }
-            return response()->json(['message' =>   'Successfully updated product']);
         }
     }
+
 
 
 
@@ -249,24 +274,20 @@ class ApiController extends Controller
 
     public function delete_product($id)
     {
-        $user = Product::find($id);
-        unlink(public_path('images/' . $user->image));
-        
-        $product = $user->delete($id);
-        if ($product) {
-            return ['result' => 'successfully deleted record'];
+        $user = Product::where('id', request('id'))->first();
+        if ($user) {
+
+            $user = Product::find($id);
+            // unlink(public_path('images/' . $user->image));
+
+            $product = $user->delete($id);
+            if ($product) {
+                return ['result' => 'successfully deleted record'];
+            } else {
+                return ['result' => 'failed to delete record'];
+            }
         } else {
-            return ['result' => 'failed to delete record'];
+            return ['result' => 'Product Id not exist'];
         }
-    }
-
-
-    public function created_by_email(Request $request)
-    {
-
-
-        $data = $request->all();
-        $user =  Product::create($data);
-        return Response()->json(['message' => 'Successfully created Authuser'], 200);
     }
 }
