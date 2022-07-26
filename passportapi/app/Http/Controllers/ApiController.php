@@ -185,12 +185,18 @@ class ApiController extends Controller
 
 
         // $file = $request->file('image');
-        $imageName = time() . '.' . $request->image->extension();
+        // $imageName = time() . '.' . $request->image->extension();
         //  print_r($request->image->getClientOriginalExtension());die();
         // $url = Storage::putFileAs('images', $file, $imageName . '.' . $file->extension());
 
+        // $imageName = time() . '.' . $request->image->getClientOriginalExtension();
+        // $request->image->move(public_path('\images'), $imageName);
+
+
+        $designation_path = 'images/products';
+        $image = $request->file('image');
         $imageName = time() . '.' . $request->image->getClientOriginalExtension();
-        $request->image->move(public_path('\images'), $imageName);
+        $path = $request->file('image')->storeAs($designation_path, $imageName);
 
         $product = new Product;
         $product->pname = $request->input('pname');
@@ -227,24 +233,27 @@ class ApiController extends Controller
                 $product = Product::find($id);
 
                 if (!empty($request->image)) {
-
-                    unlink(public_path('images/' . $product->image));
-
+                //  echo  public_path('storage\images\products' . $product->image);die();
+                if(file_exists(public_path('storage\images\products\\' . $product->image))){
+                    unlink(public_path('storage\images\products\\' . $product->image));
+                }
+                  
+                    
                     $imageName = time() . '.' . $request->image->getClientOriginalExtension();
-
-                    $request->image->move(public_path('\images'), $imageName);
-
+                    //print_r($request->image);die();
+                    $path = $request->file('image')->storeAs('images/products', $imageName);
+                    //if(file_exists($path)){}
                     $product->pname = $request->pname;
 
-                    $product->category_id = $request->category_id;
-
+                    // $product->category_id = $request->category_id;
+                
                     $product->active_status = $request->active_status;
 
                     if ($product->created_by_email == null) {
                         $product->created_by_email =  auth()->guard('api')->user()->id;
                     }
 
-                    $product['image'] = $imageName;
+                    $product['image'] = $imageName??'';
 
                     $product->update();
                 } else {
@@ -290,4 +299,59 @@ class ApiController extends Controller
             return ['result' => 'Product Id not exist'];
         }
     }
+
+
+
+
+    public function add_image(Request $request)
+    {
+        // print_r($request->file('image'));die();
+        $validator = Validator::make($request->all(), [
+            'image' => ' image |mimes : JPEG,png,jpg',
+
+
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+        // $imageName = time() . '.' . $request->image->extension();
+        $designation_path = 'public/images/products';
+        $image = $request->file('image');
+        $imageName = time() . '.' . $request->image->getClientOriginalExtension();
+        $path = $request->file('image')->storeAs($designation_path, $imageName);
+        // $request->image->move(public_path('\images'), $imageName);
+
+        $product = new Product;
+        $product->image = $request->input('image');
+        $product['image'] = $imageName;
+        $product->save();
+        return Response()->json(['message' => 'Successfully created product'], 200);
+    }
+
+
+    // public function update_image(Request $request, Product $product, $id)
+    // {
+    //     $validator = Validator::make($request->all(), [
+    //         'image' => ' image |mimes : JPEG,png,jpg',
+
+
+    //     ]);
+
+    //     $product = Product::find($id);
+
+
+
+    //     unlink(public_path('public/images/products/' . $product->image));
+
+    //     $imageName = time() . '.' . $request->image->getClientOriginalExtension();
+    //     $designation_path = 'public/images/products';
+    //     $image = $request->file('image');
+    //     $imageName = time() . '.' . $request->image->getClientOriginalExtension();
+    //     $path = $request->file('image')->storeAs($designation_path, $imageName);
+    //     $product['image'] = $imageName;
+
+    //     $product->update();
+
+    //     return response()->json(['message' =>   'Successfully updated product']);
+    // }
 }

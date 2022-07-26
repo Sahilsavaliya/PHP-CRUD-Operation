@@ -45,3 +45,4 @@ Route::middleware('auth:api')->post('/create_product', [ApiController::class,'cr
 Route::middleware('auth:api')->post('/update_product/{id}', [ApiController::class,'update_product']) ;
 Route::middleware('auth:api')->delete('/delete_product/{id}', [ApiController::class,'delete_product']);
 
+Route::middleware('auth:api')->post('/add_image', [ApiController::class,'add_image']);
