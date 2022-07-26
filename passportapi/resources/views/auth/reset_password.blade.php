@@ -82,7 +82,7 @@
         <form class="form-container" action="api/password/reset" method="POST" id="regForm">
             <h2>Forgot Password?</h2>
 
-            <input name="email" placeholder="Enter email" value="{{request()->get('email')}}" readonly>
+            <!-- <input name="email" placeholder="Enter email" value="{{request()->get('email')}}" readonly> -->
             <input name="password" id="password" placeholder="Enter new password">
             <input name="password_confirmation" id="password_confirmation" placeholder="Confirm new password">
             <input hidden name="token" placeholder="token" value="{{request()->get('token')}}">
